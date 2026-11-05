@@ -8,84 +8,108 @@
 <style>
 [hidden]{display:none!important}
 img{max-width:100%}
-/* Layout: one narrow phone-first column under a sticky red signage bar with a yellow rule (the shop's menu colors).
-   Admin tabs widen the column for tables. Big tappable chips, one primary action per card. */
+/* Layout: one narrow phone-first column under a sunny yolk header bar. Cards on a pale sky ground; sunrise-orange primary buttons; navy ink. Icons are inline SVG strokes that follow the text color. */
 :root{
-  --bg:#FAF8F5; --surface:#FFFFFF; --soft:#F3EEE7; --ink:#241815; --muted:#6B5E57; --line:#E3DBD1;
-  --head:#C8191E; --head-ink:#FFFFFF; --red:#C8191E; --on-red:#FFFFFF; --accent-text:#B3141A;
-  --yellow:#FFC629; --on-yellow:#3A2A00; --sel:#FFF1C2;
-  --warn-bg:#FFF1C2; --warn-fg:#5B3A00; --bad-bg:#FDE7E5; --bad-fg:#8A1510; --ok:#1D7A4B;
+  --bg:#F4F8FB; --surface:#FFFFFF; --soft:#E8F1F7; --ink:#14283B; --muted:#586B7C; --line:#D7E3EC;
+  --head:#FFC93C; --head-ink:#14283B;
+  --red:#D9480F; --on-red:#FFFFFF; --accent-text:#B33A09;
+  --yellow:#FFC93C; --on-yellow:#2E2200; --sel:#FFF0C4;
+  --warn-bg:#FFF0C4; --warn-fg:#5B3A00; --paid-bg:#D8F2E3; --paid-fg:#0F5132;
+  --bad-bg:#FDE4DD; --bad-fg:#8A2308; --ok:#1D7A4B; --shadow:0 1px 2px rgba(20,40,59,.06),0 4px 14px rgba(20,40,59,.05);
   --f-display:'Lalezar','Tajawal','Tahoma',system-ui,sans-serif;
   --f-body:'Tajawal','Tahoma',system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#171110; --surface:#221917; --soft:#2C2220; --ink:#F7EEE8; --muted:#B8A89F; --line:#3E302C;
-    --head:#A5161B; --head-ink:#FFFFFF; --red:#D92D32; --on-red:#FFFFFF; --accent-text:#FF8A84;
-    --yellow:#FFC629; --on-yellow:#3A2A00; --sel:#4A3A12;
-    --warn-bg:#4A3A12; --warn-fg:#FFE08A; --bad-bg:#4A1B18; --bad-fg:#FFB4AD; --ok:#5BD08F;
+    --bg:#0E1923; --surface:#162534; --soft:#1E3346; --ink:#EAF2F8; --muted:#9DB2C4; --line:#2A4156;
+    --head:#22384D; --head-ink:#FFD76B;
+    --red:#F2733A; --on-red:#1A0E07; --accent-text:#FF9B6A;
+    --yellow:#FFC93C; --on-yellow:#2E2200; --sel:#3A3216;
+    --warn-bg:#40361A; --warn-fg:#FFE08A; --paid-bg:#1D4A34; --paid-fg:#B7F0CF;
+    --bad-bg:#4A2217; --bad-fg:#FFB9A0; --ok:#5BD08F; --shadow:0 1px 2px rgba(0,0,0,.3);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#171110; --surface:#221917; --soft:#2C2220; --ink:#F7EEE8; --muted:#B8A89F; --line:#3E302C;
-  --head:#A5161B; --head-ink:#FFFFFF; --red:#D92D32; --on-red:#FFFFFF; --accent-text:#FF8A84;
-  --yellow:#FFC629; --on-yellow:#3A2A00; --sel:#4A3A12;
-  --warn-bg:#4A3A12; --warn-fg:#FFE08A; --bad-bg:#4A1B18; --bad-fg:#FFB4AD; --ok:#5BD08F;
+  --bg:#0E1923; --surface:#162534; --soft:#1E3346; --ink:#EAF2F8; --muted:#9DB2C4; --line:#2A4156;
+  --head:#22384D; --head-ink:#FFD76B;
+  --red:#F2733A; --on-red:#1A0E07; --accent-text:#FF9B6A;
+  --yellow:#FFC93C; --on-yellow:#2E2200; --sel:#3A3216;
+  --warn-bg:#40361A; --warn-fg:#FFE08A; --paid-bg:#1D4A34; --paid-fg:#B7F0CF;
+  --bad-bg:#4A2217; --bad-fg:#FFB9A0; --ok:#5BD08F; --shadow:0 1px 2px rgba(0,0,0,.3);
   color-scheme:dark;
 }
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.55 var(--f-body)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--head);z-index:30}
 *{box-sizing:border-box}
-:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.ic{width:1.2em;height:1.2em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.lg{width:2.4em;height:2.4em}
 .wrap{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap.wide{max-width:1000px}
-header.band{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--head);color:var(--head-ink);border-bottom:4px solid var(--yellow)}
-.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
-.brand{display:flex;align-items:baseline;gap:10px;min-width:0}
-.brand-name{font:400 28px/1 var(--f-display);white-space:nowrap}
-.brand-sub{font-size:13px;opacity:.92}
-.who{display:flex;align-items:center;gap:8px;font-size:14px;min-width:0;flex-wrap:wrap;justify-content:flex-end}
-.who b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:8em;display:inline-block;vertical-align:bottom}
-.who .link{font:inherit;font-size:13px;font-weight:700;background:none;border:1px solid currentColor;color:inherit;border-radius:8px;padding:3px 10px;cursor:pointer}
-.badge{font-size:12px;font-weight:800;padding:2px 9px;border-radius:999px;background:var(--soft);color:var(--muted);white-space:nowrap}
-.badge.plate{background:var(--yellow);color:var(--on-yellow)}
-.badge.adm{background:var(--yellow);color:var(--on-yellow)}
-main{padding-block:18px 56px;display:flex;flex-direction:column;gap:16px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0}
-h2{font:400 22px/1.25 var(--f-display);margin:0;text-wrap:balance}
+header.band{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--head);color:var(--head-ink);box-shadow:0 2px 0 rgba(0,0,0,.06)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:6px 12px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.brand .sun{width:38px;height:38px;border-radius:50%;background:var(--surface);color:var(--red);display:grid;place-items:center;flex:none}
+.brand .sun .ic{width:24px;height:24px}
+.brand-name{font:400 26px/1 var(--f-display);white-space:nowrap}
+.brand-sub{font-size:12.5px;opacity:.9;display:block;margin-top:2px}
+.who{display:flex;align-items:center;gap:8px;font-size:14px;min-width:0;flex:1 1 150px;flex-wrap:wrap;justify-content:flex-end}
+.who b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:7em;display:inline-block;vertical-align:bottom}
+.who .link{font:inherit;font-size:13px;font-weight:700;background:rgba(255,255,255,.55);border:0;color:inherit;border-radius:999px;padding:4px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .who .link{background:rgba(255,255,255,.12)}}
+:root[data-theme="dark"] .who .link{background:rgba(255,255,255,.12)}
+.badge{font-size:12px;font-weight:800;padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--muted);white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+.badge .ic{width:1em;height:1em}
+.badge.plate,.badge.adm{background:var(--yellow);color:var(--on-yellow)}
+.badge.paid{background:var(--paid-bg);color:var(--paid-fg)}
+.badge.unpaid{background:var(--warn-bg);color:var(--warn-fg)}
+main{padding-block:16px 56px;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0;box-shadow:var(--shadow)}
+h2{font:400 22px/1.25 var(--f-display);margin:0;text-wrap:balance;display:flex;align-items:center;gap:8px}
+h2 .ic{color:var(--red)}
 p{margin:0}
 .muted{color:var(--muted);font-size:14px}
-.lbl{font-weight:800;font-size:14px;color:var(--muted);margin-bottom:6px}
+.lbl{font-weight:800;font-size:14px;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .field{min-width:0}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{font:inherit;font-weight:700;padding:8px 14px;min-height:44px;border-radius:999px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
 .chip[aria-pressed="true"]{background:var(--sel);border-color:var(--red)}
 .chip .pr{font-size:13px;color:var(--accent-text);font-variant-numeric:tabular-nums}
-.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border:2px solid var(--line);border-radius:12px;overflow:hidden}
-.seg button{font:inherit;font-weight:800;padding:10px;min-height:48px;border:0;background:var(--surface);color:var(--ink);cursor:pointer}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border:2px solid var(--line);border-radius:14px;overflow:hidden}
+.seg button{font:inherit;font-weight:800;padding:10px 6px;min-height:48px;border:0;background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
 .seg button[aria-pressed="true"]{background:var(--red);color:var(--on-red)}
 .seg button+button{border-inline-start:2px solid var(--line)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:420px){.two{grid-template-columns:1fr}}
+.stack{display:flex;flex-direction:column;gap:14px}
 .row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
 .row .grow{flex:1 1 180px;min-width:0}
 .stepper{display:inline-flex;align-items:center;gap:6px}
-.stepper button{font:inherit;font-weight:800;font-size:22px;width:46px;height:46px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.stepper button{font:inherit;width:46px;height:46px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center}
 .stepper output{font:400 26px/1 var(--f-display);min-width:2ch;text-align:center;font-variant-numeric:tabular-nums}
-input[type=text],input[type=number]{font:inherit;padding:10px 12px;min-height:46px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);min-width:0;width:100%}
+input[type=text],input[type=number],input[type=password]{font:inherit;padding:10px 12px;min-height:46px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);min-width:0;width:100%}
 input[type=number]{text-align:center}
 input.need{border-color:#E08A00}
-textarea{font:inherit;width:100%;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:10px}
-.preview{background:var(--soft);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.inp{display:flex;align-items:center;gap:8px;border:2px solid var(--line);border-radius:14px;background:var(--bg);padding-inline:12px;min-height:50px}
+.inp:focus-within{border-color:var(--red)}
+.inp .ic{color:var(--muted)}
+.inp input{border:0;background:transparent;padding:10px 0;min-height:46px;outline:0;flex:1}
+.inp .eye{font:inherit;background:none;border:0;color:var(--muted);cursor:pointer;padding:6px;display:grid;place-items:center;border-radius:8px}
+textarea{font:inherit;width:100%;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);padding:10px}
+.chk{display:flex;align-items:center;gap:10px;font-weight:700;cursor:pointer;min-height:44px}
+.chk input{width:22px;height:22px;accent-color:var(--red);flex:none}
+.chk .ic{color:var(--red)}
+.preview{background:var(--soft);border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .preview .nm{font:400 24px/1.25 var(--f-display)}
 .preview .pz{font-weight:800;color:var(--accent-text);font-variant-numeric:tabular-nums}
-.btn{font:inherit;font-weight:800;border-radius:12px;border:2px solid transparent;padding:10px 18px;min-height:48px;cursor:pointer;background:var(--red);color:var(--on-red)}
+.btn{font:inherit;font-weight:800;border-radius:14px;border:2px solid transparent;padding:10px 18px;min-height:48px;cursor:pointer;background:var(--red);color:var(--on-red);display:inline-flex;align-items:center;justify-content:center;gap:8px}
 .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
 .btn.yellow{background:var(--yellow);color:var(--on-yellow)}
-.btn.small{min-height:38px;padding:5px 12px;font-size:14px}
+.btn.small{min-height:38px;padding:5px 12px;font-size:14px;border-radius:12px}
+.btn.block{width:100%}
 .btn:disabled,.chip:disabled,.seg button:disabled,.stepper button:disabled{opacity:.45;cursor:not-allowed}
+.linkbtn{font:inherit;font-weight:700;font-size:14px;background:none;border:0;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:8px 10px}
 fieldset{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:16px}
 .line{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding-block:10px;border-top:1px dashed var(--line)}
 .line:first-of-type{border-top:0}
@@ -96,58 +120,92 @@ fieldset{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:col
 .pz{font-weight:800;font-variant-numeric:tabular-nums}
 .totalrow{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--ink);padding-top:10px;font-weight:800}
 .totalrow .big{font:400 26px/1 var(--f-display);font-variant-numeric:tabular-nums}
-.note{border-radius:12px;padding:12px 14px;font-weight:700}
+.note{border-radius:14px;padding:12px 14px;font-weight:700;display:flex;gap:10px;align-items:flex-start}
+.note .ic{margin-top:3px}
 .note.warn{background:var(--warn-bg);color:var(--warn-fg)}
 .note.bad{background:var(--bad-bg);color:var(--bad-fg)}
-.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);overflow-x:auto}
-.tab{font:inherit;font-weight:800;background:none;border:0;padding:10px 16px;cursor:pointer;color:var(--muted);border-bottom:4px solid transparent;margin-bottom:-2px;white-space:nowrap}
-.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--red)}
-.sechead{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:18px;border-top:4px solid var(--yellow)}
-.sechead h2{font-size:26px}
+.note.debt{border:2px solid var(--red)}
+.note .nb{display:flex;flex-direction:column;gap:3px;min-width:0}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
-.tile{background:var(--soft);border-radius:12px;padding:12px;min-width:0}
-.tile span{font-size:13px;color:var(--muted);font-weight:700}
+.tile{background:var(--soft);border-radius:14px;padding:12px;min-width:0}
+.tile span{font-size:13px;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:6px}
 .tile b{font:400 30px/1.15 var(--f-display);display:block;font-variant-numeric:tabular-nums}
 .tile small{font-size:12px;color:var(--warn-fg);background:var(--warn-bg);border-radius:6px;padding:0 6px}
 .daynav{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .daynav .dl{font:400 22px/1.2 var(--f-display)}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
+.sec{display:flex;flex-direction:column;gap:6px}
+.sec .sh{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--soft);border-radius:12px;padding:8px 12px;font:400 20px/1.2 var(--f-display)}
+.sec .sh .tot{font:800 15px var(--f-body);color:var(--accent-text)}
 .agg{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:start}
-.agg .c{font:400 30px/1.05 var(--f-display);color:var(--accent-text);min-width:2ch;text-align:center;font-variant-numeric:tabular-nums}
-.agg .d{padding-bottom:10px;border-bottom:1px dashed var(--line);min-width:0}
+.agg .c{font:400 28px/1.05 var(--f-display);color:var(--accent-text);min-width:2ch;text-align:center;font-variant-numeric:tabular-nums}
+.agg .d{padding-bottom:8px;border-bottom:1px dashed var(--line);min-width:0}
 .people{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.person{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.person{border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .person header{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .person h3{margin:0;font:400 20px/1.2 var(--f-display);overflow-wrap:anywhere}
+.sum{font-size:15px;color:var(--ink);overflow-wrap:anywhere}
 .pl{display:flex;justify-content:space-between;gap:10px;font-size:15px}
 .pl span:first-child{min-width:0;overflow-wrap:anywhere}
 .mitem{display:flex;flex-direction:column;gap:6px;padding-block:10px;border-top:1px dashed var(--line)}
 .mrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .mrow input[type=text]{flex:1 1 150px;width:auto}
 .mrow input[type=number]{flex:0 0 96px;width:96px}
-.mini{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.mini{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex:1 1 140px}
 .mini input{flex:1}
-.conf{display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:700}
+.conf{display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:700;flex-wrap:wrap}
 .addf{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-top:12px;border-top:2px solid var(--line)}
 .addf input[name=n]{flex:1 1 150px;width:auto}
 .addf input[name=p]{flex:0 0 96px;width:96px}
-.addf input[name=ph]{flex:1 1 100%;width:auto}
+.sechead{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:18px;border-top:4px solid var(--yellow)}
+.sechead h2{font-size:26px}
+.rline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.rline .k{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;font-weight:700}
+.rname{font:400 22px/1.2 var(--f-display)}
+.grp{display:flex;flex-direction:column;gap:8px}
+.gh{font:inherit;font-weight:800;width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px;min-height:50px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-align:start}
+.gh .gl{display:inline-flex;align-items:center;gap:10px;font-size:17px}
+.gh .gl .ic{color:var(--red);width:1.4em;height:1.4em}
+.gh[aria-expanded="true"]{border-color:var(--red);background:var(--sel)}
+.gh .cnt{font-size:13px;color:var(--muted);font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.gitems{padding:10px 2px 6px;display:flex;flex-wrap:wrap;gap:8px}
+.sumrows{display:flex;flex-direction:column;gap:4px;padding-top:6px;border-top:1px dashed var(--line)}
+.hello{align-items:stretch;text-align:center}
+.hello .hero{width:72px;height:72px;border-radius:50%;background:var(--yellow);color:var(--on-yellow);display:grid;place-items:center;margin:0 auto}
+.hello .hero .ic{width:42px;height:42px}
+.hello h2{justify-content:center;font-size:28px}
+.hello .chk{justify-content:center}
+.stop{align-items:center;text-align:center}
+.stop h2{justify-content:center}
+.mastercard{border:2px solid var(--yellow)}
 .toast{position:fixed;left:0;right:0;bottom:0;padding:0 max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;justify-content:center;pointer-events:none;z-index:40}
 .toast span{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:800;box-shadow:0 4px 18px rgba(0,0,0,.28);max-width:100%}
+@media (prefers-reduced-motion:no-preference){.chip,.btn,.gh{transition:background-color .12s,border-color .12s}}
+
+.greet{padding:4px 2px 0}
+.greet h2{font-size:28px;text-wrap:balance}
+.greet p{margin-top:2px;font-size:16px}
+.stopmsg{font-size:18px;font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;max-width:30em}
+
+a.btn{text-decoration:none}
+.btn.wa{background:#1fa855;color:#fff}
+.tel{color:var(--accent-text);font-weight:800;text-decoration:underline}
+select{font:inherit;min-height:44px;padding:8px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
+.addf select{width:auto;flex:1 1 150px}
 </style>
 </head>
 <body>
 <div id="app" dir="rtl" lang="ar">
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol><symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol><symbol id="i-sandwich" viewBox="0 0 24 24"><path d="M3 10c0-4 4-6 9-6s9 2 9 6z"/><path d="M3 14h18"/><path d="M5 14l1 4c0 1 1 2 3 2h6c2 0 3-1 3-2l1-4"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol><symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5V3h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></symbol><symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3L2 21h20z"/><path d="M12 10v5M12 18h.01"/></symbol><symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v9"/><path d="M6.3 6.3a8 8 0 1 0 11.4 0"/></symbol><symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l1-5h16l1 5"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-5h4v5"/></symbol><symbol id="i-clip" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3h6v1M9 11h6M9 15h6"/></symbol><symbol id="i-plate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></symbol><symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M8 3v3M12 3v3M16 3v3"/></symbol><symbol id="i-falafel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M14 9h.01M12 14h.01M16 14h.01M8 14h.01"/></symbol><symbol id="i-fries" viewBox="0 0 24 24"><path d="M5 10l1.5 11h11L19 10z"/><path d="M8 10V4M12 10V3M16 10V5"/></symbol><symbol id="i-chips" viewBox="0 0 24 24"><path d="M6 3h12l-1 18H7z"/><path d="M6 8h12M6 16h12"/></symbol><symbol id="i-egg" viewBox="0 0 24 24"><path d="M12 3c4 0 7 6 7 11a7 7 0 0 1-14 0c0-5 3-11 7-11z"/></symbol><symbol id="i-cheese" viewBox="0 0 24 24"><path d="M3 17V10l18-5v12z"/><circle cx="9" cy="13.5" r="1"/><circle cx="15" cy="11" r="1"/></symbol><symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol><symbol id="i-bike" viewBox="0 0 24 24"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l4-8h5l3 8M9 9H7"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 20v-1a5 5 0 0 0-3-4.6"/></symbol><symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol><symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol><symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol></svg>
   <header class="band">
     <div class="wrap bar" id="hwrap">
-      <div class="brand"><span class="brand-name">طلبات غبور</span><span class="brand-sub">ساندوتشات النهاردة</span></div>
+      <div class="brand"><span class="sun"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg></span><div><span class="brand-name">طلبات غبور</span><span class="brand-sub">فطار النهاردة</span></div></div>
       <div class="who" id="who"></div>
     </div>
   </header>
   <main class="wrap" id="main"></main>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </div>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
@@ -166,21 +224,72 @@ var FIREBASE_CONFIG = {
 'use strict';
 var $=function(s){return document.querySelector(s)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-var KIND={sandwich:'ساندوتش',plate:'طلب'};
-var BREAD=['بلدي','شامي','سوري'], SALAD=['بلدي','عادية','طحينة فقط'];
+function ic(n,c){return '<svg class="ic'+(c?' '+c:'')+'" aria-hidden="true" focusable="false"><use href="#i-'+n+'"/></svg>'}
+var BREAD=['بلدي','شامي'], SALAD=['بلدي','عادية','طحينة فقط','بدون'];
+var GROUPS=[['foul','فول','bowl'],['tameya','طعمية','falafel'],['batates','بطاطس','fries'],['chipsy','شيبسي','chips'],['egg','بيض','egg'],['cheese','جبنة','cheese'],['other','أخرى','spark']];
+var SEED_USERS=[["Mohamed Anwar", "2d5ebb335f36fae41b265cc5466ae9e0", "2408"], ["Mohamed Tarek", "31f9d8b850d8ed340a495f9182b3a0d6", "7056"], ["Adel Waguih", "cc69c1f34e0ca5f10882bb00c71bbef7", "5341"], ["Ibrahim El Ghailani", "0f5ec997a51fe8da6fe23a615c8ab21d", "2365"], ["Mostafa Said", "00089256b3ed2eb51f0b8dd09f24f90f", "0041"], ["Mohamed Hany", "15f8842773664f3d832fcbfed5342703", "8935"], ["Mahmoud Sweilam", "7ae6646fe8d35e7a32d913396fa9ade1", "1546"], ["Hassan Mohamed", "84fd1e4ad3c5d62620758fcc2964922e", "8187"], ["Bola Boles", "af9ad45a368ba8377a90efc590fdf0c7", "7390"], ["Mohamed Fathy", "29e667223fa3fd9ab395e12a06706179", "2805"], ["Mohamed Shawky", "2fbc1537d34f4b7239deb7d43394ba7e", "7736"], ["Abanoub Beshoy", "45f9797ea7da486356e8880aadb33387", "3714"], ["Mohamed Sayed", "7c870de7169324bc42c934e1f2af0858", "9075"], ["Ahmed Kamal", "bd76acb2621995c2ec8b7b481fcdd968", "8943"], ["Abd El Aziz Hosny", "065b0af14881295b63f37ce3f31d2491", "0870"], ["Ibrahim Zaeria", "ec64f8430b05c158c3fa920a53220891", "4452"], ["Mahmoud Abou khares", "d56b4b393ac0230f1bbca8456e4dab66", "2715"], ["Mina Hany", "a0102e4069c1b8f5c8cf8cae97f0f51e", "9266"], ["Mina Sabry", "b96970a3b620b3508c7f06cfe45f1b34", "2650"], ["Mohamed Abdullah", "d55f86e0e8d0cf38ae8a89bc99b58392", "3499"], ["Mohamed Hussein", "3bdf382f9e212b4bec40a5351e20302f", "9257"], ["Mohamed Mokarab", "4c6ee39c5bebffc28f8e5b1aa8b3d80b", "9041"]];
+var DEF_ADMIN_U='GB', DEF_ADMIN_P='GB', DEF_ORG_U='ORG', DEF_ORG_P='ORG';
+var MASTER_U='Hossam', MASTER_H='16e858b5b9d6146e7caaf1ce313c9507bc59c2198fc916699ffd95661cf10ed1';
 
-var db=null, userNs=null, dl=null, unsub={};
-var S={
-  name:'', nameDraft:'', editingName:false, focusName:false,
-  today:ymd(), date:ymd(), tab:'order',
-  isAdmin:false, canWrite:null, dbNull:false, err:null, slow:false,
-  showLogin:false, loginErr:false, focusLogin:false, canWriteReal:null, mine:null, menu:[], menuReady:false, orders:[], ordersReady:false, meta:null,
-  draft:{kind:'sandwich',typeId:null,extraId:null,bread:'بلدي',salad:'بلدي',qty:1,note:''},
-  confirmDel:null, copyText:null, selectCopy:false, dirty:false
+/* ---------- sha256 (للتحقق من الباسورد من غير ما يتخزن مكتوب) ---------- */
+function sha256(s){
+  s=unescape(encodeURIComponent(s));
+  var rr=function(v,a){return (v>>>a)|(v<<(32-a))};
+  var K=[],H=[],isP=function(n){for(var i=2;i*i<=n;i++)if(n%i===0)return false;return true};
+  var frac=function(x){return ((x-Math.floor(x))*4294967296)|0};
+  for(var c=2,n=0;n<64;c++){if(isP(c)){if(n<8)H[n]=frac(Math.pow(c,1/2));K[n]=frac(Math.pow(c,1/3));n++}}
+  var w=[],ml=s.length*8,i,j;
+  s+='\x80';while(s.length%64-56)s+='\x00';
+  for(i=0;i<s.length;i++){j=s.charCodeAt(i);w[i>>2]|=j<<((3-i)%4)*8}
+  w[w.length]=((ml/4294967296)|0);w[w.length]=ml;
+  for(j=0;j<w.length;){
+    var wi=w.slice(j,j+=16),old=H;H=H.slice(0,8);
+    for(i=0;i<64;i++){
+      var w15=wi[i-15],w2=wi[i-2],a=H[0],e=H[4];
+      var t1=H[7]+(rr(e,6)^rr(e,11)^rr(e,25))+((e&H[5])^((~e)&H[6]))+K[i]+(wi[i]=(i<16)?wi[i]:(wi[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+wi[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10))|0));
+      var t2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&H[1])^(a&H[2])^(H[1]&H[2]));
+      H=[(t1+t2)|0].concat(H);H[4]=(H[4]+t1)|0;
+    }
+    for(i=0;i<8;i++)H[i]=(H[i]+old[i])|0;
+  }
+  var out='';
+  for(i=0;i<8;i++)for(j=3;j+1;j--){var b=(H[i]>>(j*8))&255;out+=((b<16)?'0':'')+b.toString(16)}
+  return out;
+}
+function credHash(u,p){return sha256('ghabour|'+u+'|'+p)}
+
+/* ---------- seed (أسعار تقديرية، الأدمن يعدلها لكل مطعم) ---------- */
+var SEED_RESTS=['المسلم','عباد الرحمن','الشبراوي','نجف','الفضيح'];
+var SEED_BREAD=2, SEED_DELIVERY=15;
+var SEED_ITEMS={
+  foul:[['فول سادة',12],['فول بالزيت الحار',12],['فول بالزيت الحلو',12],['فول بزيت الزيتون',15],['فول بالسمنة البلدي',15],['فول بالزبدة',15],['فول إسكندراني',18],['فول بالصلصة',12],['فول بالتقلية والثوم',15],['فول بالبابا غنوج',18],['فول بالباذنجان',18],['فول بالبيض المسلوق',20],['فول بالبيض المقلي',22],['فول بالسجق',28],['فول بالبسطرمة',30],['فول على طعمية',15]],
+  tameya:[['طعمية سادة',12],['طعمية محشية',18],['طعمية بالبابا غنوج',18],['طعمية بالباذنجان المقلي',18],['طعمية بالبيض المسلوق',20],['طعمية بالبيض المقلي',22],['طعمية بالجبنة البيضاء',22],['طعمية بالجبنة الرومي',28],['طعمية بالجبنة الكيري',28],['طعمية كيري بالبسطرمة',35],['فول على طعمية',15]],
+  batates:[['بطاطس صوابع',15],['بطاطس مهروسة',15],['بطاطس مهروسة بالبيض',22],['بطاطس مقلية بالبيض',22],['بطاطس بالجبنة الرومي',28],['بطاطس بالجبنة الكيري',28],['بطاطس بانيه',25],['بطاطس بالبابا غنوج',20]],
+  chipsy:[['شيبسي سادة',12],['شيبسي بالبيض',22],['شيبسي بالجبنة الرومي',28],['شيبسي بالجبنة الكيري',28],['شيبسي بالبابا غنوج',20],['شيبسي بانيه',25]],
+  egg:[['بيض مسلوق',15],['بيض مقلي',18],['بيض أومليت',22],['بيض بالبسطرمة',30],['بيض بالسجق',30],['بيض بالجبنة الرومي',30],['بيض شكشوكة',25],['بيض بالجبنة البيضاء',25]],
+  cheese:[['جبنة بيضاء سادة',18],['جبنة بيضاء بالطماطم',20],['جبنة قديمة بالطماطم والزيت',22],['جبنة رومي مقلية',30]],
+  other:[['ديناميت',35],['مسقعة',18],['باذنجان مقلي',18],['باذنجان مخلل',15],['بابا غنوج',18],['عجة مصري',25]]
 };
 
+var db=null, unsub={};
+var S={
+  stopMsgDraft:null, myPhone:'', banned:false, late:[], lateOrders:[], name:'', pk:'', phoneDraft:'', phoneErr:'', loginPending:false, users:[], focusName:false, remember:true,
+  today:ymd(), date:ymd(),
+  role:'user', showLogin:false, loginErr:false, focusLogin:false, showPass:false,
+  site:{stopped:false}, confirmStop:false,
+  dbNull:false, setup:false, err:null, slow:false,
+  remindHour:14, myAll:[], debts:[], rests:[], items:[], restsReady:false, itemsReady:false, orders:[], ordersReady:false, meta:null, mine:null,
+  draft:{kind:'sandwich',itemId:null,bread:'بلدي',salad:'بلدي',qty:1,note:''},
+  openGroup:null, editRest:null, confirmDel:null, copyText:null, selectCopy:false, dirty:false
+};
+function isMaster(){return S.role==='master'}
+function isAdmin(){return S.role==='admin'||S.role==='master'}
+function isStaff(){return S.role!=='user'}
+function roleName(){return S.role==='master'?'كريتور':S.role==='admin'?'أدمن':'منظم'}
+
 /* ---------- helpers ---------- */
-function ymd(d){d=d||new Date();var p=function(n){return String(n).padStart(2,'0')};return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())}
+function nowD(){return new Date(Date.now()+(window.__SHIFT||0))}
+function ymd(d){d=d||nowD();var p=function(n){return String(n).padStart(2,'0')};return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())}
 function shiftDate(s,n){var d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return ymd(d)}
 function dateLabel(s){try{return new Date(s+'T12:00:00').toLocaleDateString('ar-EG-u-nu-latn',{weekday:'long',day:'numeric',month:'long'})}catch(e){return s}}
 function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
@@ -191,100 +300,189 @@ function hash(s){
   var h=0x811c9dc5;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0}
   return h.toString(16).padStart(8,'0');
 }
-function myDocId(){return S.today+'_'+hash(S.name)}
+function myDocId(){return S.today+'_'+S.pk}
+function normPhone(s){
+  s=String(s||'').replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)}).replace(/[^\d]/g,'');
+  if(s.indexOf('0020')===0)s=s.slice(4);else if(s.indexOf('20')===0&&s.length===12)s=s.slice(2);
+  if(s.length===10&&s[0]==='1')s='0'+s;
+  return /^01[0-9]{9}$/.test(s)?s:null;
+}
+function phoneKey(p){return sha256('ghabour-phone|'+p).slice(0,32)}
+function parseUsers(text){
+  var lines=String(text||'').split(/\r?\n/).map(function(l){return l.trim()}).filter(Boolean),out=[],name=null;
+  lines.forEach(function(l){
+    var ph=normPhone(l);
+    if(ph&&/^[\d\s+\-٠-٩]+$/.test(l)){if(name){out.push({name:name,phone:ph});name=null}return}
+    var m=l.match(/^(.*?)[\s:,\-]+([\d\s+٠-٩]{10,})$/);
+    if(m&&normPhone(m[2])){out.push({name:m[1].trim(),phone:normPhone(m[2])});name=null}
+    else name=l.slice(0,40);
+  });
+  return out;
+}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-function saladTxt(v){return v==='طحينة فقط'?v:'سلطة '+v}
 function money(n){return String(Math.round(n*100)/100)}
 function isNum(v){return typeof v==='number'&&isFinite(v)}
-function isClosed(){return !!(S.meta&&S.meta.closed)}
-function menuMap(){var m={};S.menu.forEach(function(x){m[x.id]=x});return m}
-function byCat(cat){
-  return S.menu.filter(function(m){return m.cat===cat}).sort(function(a,b){
-    var d=(isNum(a.sort)?a.sort:1e9)-(isNum(b.sort)?b.sort:1e9);
-    return d||String(a.name).localeCompare(String(b.name),'ar');
-  });
-}
-function phraseOf(e){return (e.phrase&&String(e.phrase).trim())||((/^ال/.test(e.name)?'ب':'بال')+e.name)}
-function labelOf(t,e){return t.name+(e?' '+phraseOf(e):'')}
-function lineMoney(l,map){
-  var t=map[l.typeId], e=l.extraId?map[l.extraId]:null;
-  var tp=t&&isNum(t.price)?t.price:null, ep=e?(isNum(e.price)?e.price:null):0;
-  var q=Math.max(1,Number(l.qty)||1);
-  if(tp===null||ep===null) return {unit:null,total:0,qty:q};
-  return {unit:tp+ep,total:(tp+ep)*q,qty:q};
-}
-function orderTotals(o,map){
-  var r={qty:0,total:0,miss:0};
-  (o.lines||[]).forEach(function(l){var m=lineMoney(l,map);r.qty+=m.qty;if(m.unit===null)r.miss+=m.qty;else r.total+=m.total});
-  return r;
-}
-function sortedOrders(){return S.orders.slice().sort(function(a,b){return String(a.name).localeCompare(String(b.name),'ar')})}
-function aggregate(os){
-  var m=new Map();
-  os.forEach(function(o){(o.lines||[]).forEach(function(l){
-    var q=Math.max(1,Number(l.qty)||1);
-    var k=[l.kind,l.label,l.bread,l.salad,l.note||''].join('\u0001');
-    var r=m.get(k)||{kind:l.kind,label:l.label,bread:l.bread,salad:l.salad,note:l.note||'',qty:0,who:[]};
-    r.qty+=q;r.who.push(o.name+(q>1?' ×'+q:''));m.set(k,r);
-  })});
-  return Array.from(m.values()).sort(function(a,b){
-    var ka=a.kind==='plate'?1:0,kb=b.kind==='plate'?1:0;
-    return (ka-kb)||String(a.label).localeCompare(String(b.label),'ar');
-  });
-}
-function breakdown(agg){
-  var b={},s={},q=0;
-  agg.forEach(function(r){if(r.bread){b[r.bread]=(b[r.bread]||0)+r.qty;s[r.salad]=(s[r.salad]||0)+r.qty}q+=r.qty});
-  var f=function(o){return Object.keys(o).map(function(k){return k+' '+o[k]}).join(' · ')};
-  return {qty:q,bread:f(b),salad:f(s)};
-}
+function numOrNull(str){var s=String(str).trim();if(s==='')return null;var n=Number(s);return (isFinite(n)&&n>=0)?n:null}
+function saladTxt(v){return v==='طحينة فقط'?v:v==='بدون'?'بدون سلطة':'سلطة '+v}
 var tt;
 function toast(m){var t=$('#toast');t.innerHTML='<span></span>';t.firstChild.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},2800)}
 var chain=Promise.resolve();
 function errText(e,m){
-  if(e&&e.code==='invalid_argument')return 'مش مسموح لك تعدّل. اطلب من الأدمن يشاركك بصلاحية «مشاركة»';
-  if(e&&e.code==='quota_exceeded')return 'المساحة امتلأت';
+  if(e&&e.code==='permission-denied')return 'مش مسموح. اتأكد من قواعد Firestore';
   return m||'حصلت مشكلة، جرّب تاني';
 }
 function enqueue(fn,msg){chain=chain.then(fn).catch(function(e){toast(errText(e,msg))});return chain}
 
+/* ---------- model ---------- */
+function sortBy(a){return a.slice().sort(function(x,y){var d=(isNum(x.sort)?x.sort:1e9)-(isNum(y.sort)?y.sort:1e9);return d||String(x.name).localeCompare(String(y.name),'ar')})}
+function restsSorted(){return sortBy(S.rests.filter(function(r){return !r.removed}))}
+function removedRests(){return sortBy(S.rests.filter(function(r){return r.removed}))}
+function itemMap(){var m={};S.items.forEach(function(x){m[x.id]=x});return m}
+function itemsOf(g){return sortBy(S.items.filter(function(x){return x.group===g}))}
+function dayRestFor(meta){
+  var rs=restsSorted();
+  if(meta&&meta.rest){for(var i=0;i<S.rests.length;i++)if(S.rests[i].id===meta.rest)return S.rests[i]}
+  return rs[0]||null;
+}
+function dayRest(){return dayRestFor(S.meta)}
+function isConfirmed(o){return !!(o&&(o.lines||[]).length&&o.confirmed!==false)}
+function isClosed(){return !!(S.meta&&S.meta.closed)}
+function priceOf(it,rest){return (it&&rest&&it.prices&&isNum(it.prices[rest.id]))?it.prices[rest.id]:null}
+function unitOf(l,rest,im){
+  var it=im[l.itemId],p=priceOf(it,rest);
+  if(p===null)return null;
+  var b=(l.kind!=='plate'&&l.bread==='بلدي'&&rest&&isNum(rest.bread))?rest.bread:0;
+  return p+b;
+}
+function qtyOf(l){return Math.max(1,Number(l.qty)||1)}
+function orderSub(o,rest,im){
+  var r={qty:0,sub:0,miss:0};
+  (o.lines||[]).forEach(function(l){var u=unitOf(l,rest,im),q=qtyOf(l);r.qty+=q;if(u===null)r.miss+=q;else r.sub+=u*q});
+  return r;
+}
+function shareOf(delivery,n){
+  if(!n||!isNum(delivery)||delivery<=0)return 0;
+  var x=Math.round(delivery*2/n*1e6)/1e6;
+  return Math.ceil(x)/2;
+}
+function calcDay(){var c=calcDayFor(S.orders,S.meta);c.meta=S.meta;return c}
+function calcDayFor(orders,meta){
+  var rest=dayRestFor(meta),im=itemMap();
+  var os=orders.filter(function(o){return (o.lines||[]).length&&o.confirmed!==false}).sort(function(a,b){return String(a.name).localeCompare(String(b.name),'ar')});
+  var n=os.length,share=shareOf(rest&&rest.delivery,n);
+  var d={rest:rest,n:n,share:share,people:[],sub:0,grand:0,qty:0,miss:0,paid:0,im:im};
+  os.forEach(function(o){
+    var t=orderSub(o,rest,im),total=t.sub+share;
+    d.people.push({o:o,qty:t.qty,sub:t.sub,miss:t.miss,share:share,total:total,paid:!!o.paid});
+    d.sub+=t.sub;d.grand+=total;d.qty+=t.qty;d.miss+=t.miss;if(o.paid)d.paid++;
+  });
+  return d;
+}
+function aggregate(people){
+  var m=new Map();
+  people.forEach(function(p){(p.o.lines||[]).forEach(function(l){
+    var q=qtyOf(l),k=[l.kind,l.label,l.bread,l.salad,l.note||''].join('\u0001');
+    var r=m.get(k)||{kind:l.kind,label:l.label,bread:l.bread,salad:l.salad,note:l.note||'',qty:0,who:[]};
+    r.qty+=q;r.who.push(p.o.name+(q>1?' ×'+q:''));m.set(k,r);
+  })});
+  return Array.from(m.values()).sort(function(a,b){return String(a.label).localeCompare(String(b.label),'ar')});
+}
+function sections(agg){
+  var order=['بلدي','شامي'];
+  agg.forEach(function(r){if(r.kind!=='plate'&&r.bread&&order.indexOf(r.bread)<0)order.push(r.bread)});
+  var out=order.map(function(b){
+    var rows=agg.filter(function(r){return r.kind!=='plate'&&r.bread===b});
+    return {key:b,title:'عيش '+b,rows:rows,total:rows.reduce(function(s,r){return s+r.qty},0)};
+  });
+  var pl=agg.filter(function(r){return r.kind==='plate'||!r.bread&&r.kind!=='sandwich'});
+  out.push({key:'plate',title:'أطباق',rows:pl,total:pl.reduce(function(s,r){return s+r.qty},0)});
+  return out.filter(function(s){return s.rows.length});
+}
+function shortOrder(p){
+  return (p.o.lines||[]).map(function(l){
+    var q=qtyOf(l);
+    return q+' '+l.label+(l.kind==='plate'?' (طبق)':l.bread==='بلدي'?' ب':l.bread==='شامي'?' ش':'');
+  }).join('، ');
+}
+
+function userById(pk){for(var i=0;i<S.users.length;i++)if(S.users[i].id===pk)return S.users[i];return null}
+function telDigits(x){return String(x||'').replace(/[^\d+]/g,'')}
+function waLink(phone,text){return 'https://wa.me/20'+String(phone).slice(1)+'?text='+encodeURIComponent(text)}
+function orgInfo(meta){
+  var n=(meta&&meta.organizer)||'',ph=(meta&&meta.orgPhone)||'';
+  if(!ph&&n){var k=n.trim().toLowerCase();S.users.forEach(function(u){if(u.phone&&String(u.name).trim().toLowerCase()===k)ph=u.phone})}
+  return {name:n,phone:ph};
+}
+function orgLine(o){return o.name?'برجاء الدفع للمنظم '+o.name+(o.phone?'\nلو التحويل على رقمه: '+o.phone:''):''}
+function payMsg(name,total,qty,when,org){
+  var L=[greeting()+' يا '+name+' 🌞','حسابك '+when+' '+money(total)+' جنيه ('+qty+(qty===1?' قطعة':' قطع')+') 🥪'];
+  var ol=orgLine(org);if(ol)L.push(ol);
+  return L.join('\n');
+}
+function lateMsg(name,rows){
+  var L=[greeting()+' يا '+name+' 🌞','حسابك لسه ماتدفعش:'];
+  rows.forEach(function(r){
+    var o=orgInfo({organizer:r.org,orgPhone:r.orgPhone});
+    L.push('• '+dateLabel(r.date)+': '+money(r.total)+' جنيه'+(o.name?' (للمنظم '+o.name+(o.phone?' — '+o.phone:'')+')':''));
+  });
+  L.push('برجاء الدفع في أقرب وقت 🙏');
+  return L.join('\n');
+}
+function waBtn(phone,text,label){
+  if(!phone)return '<span class="muted">مفيش رقم</span>';
+  return '<a class="btn small wa" href="'+esc(waLink(phone,text))+'" target="_blank" rel="noopener">'+ic('chat')+(label||'ذكّره على واتساب')+'</a>';
+}
+
 /* ---------- data ---------- */
-function subMenu(){
-  unsub.menu=db.collection('menu').onSnapshot(function(snap){
-    S.menu=snap.docs.map(function(d){return Object.assign({},d.data(),{id:d.id})});
-    S.menuReady=true;S.slow=false;render();
+function subAll(){
+  unsub.rests=db.collection('rests').onSnapshot(function(snap){
+    S.rests=snap.docs.map(function(d){return Object.assign({},d.data(),{id:d.id})});
+    S.restsReady=true;S.slow=false;
+    if(!S.editRest||!S.rests.some(function(r){return r.id===S.editRest})){var r=dayRest();S.editRest=r?r.id:null}
+    render();
   },function(e){S.err=e.code;render()});
+  unsub.items=db.collection('items').onSnapshot(function(snap){
+    S.items=snap.docs.map(function(d){return Object.assign({},d.data(),{id:d.id})});
+    S.itemsReady=true;render();
+  },function(e){S.err=e.code;render()});
+  unsub.site=db.doc('settings/site').onSnapshot(function(s){S.site=s.exists?s.data():{stopped:false};render()},function(){});
 }
 function subDay(){
   if(unsub.orders)unsub.orders();if(unsub.meta)unsub.meta();
   S.ordersReady=false;S.orders=[];S.meta=null;
   unsub.orders=db.collection('orders').where('date','==',S.date).onSnapshot(function(snap){
     S.orders=snap.docs.map(function(d){return Object.assign({},d.data(),{id:d.id})});
-    S.ordersReady=true;render();
+    S.ordersReady=true;render();scheduleDebts();
   },function(e){S.err=e.code;render()});
   unsub.meta=db.doc('meta/'+S.date).onSnapshot(function(s){S.meta=s.exists?s.data():null;render()},function(){});
 }
 function subMine(){
   if(unsub.mine){unsub.mine();unsub.mine=null}
-  S.mine=null;
-  if(!db||!S.name||S.editingName)return;
+  if(unsub.myall){unsub.myall();unsub.myall=null}
+  if(unsub.me){unsub.me();unsub.me=null}
+  S.mine=null;S.myAll=[];S.debts=[];S.banned=false;S.myPhone='';
+  if(!db||!S.pk)return;
+  unsub.me=db.doc('users/'+S.pk).onSnapshot(function(sn){
+    if(sn.exists){var u=sn.data();S.name=u.name||S.name;S.myPhone=u.phone||'';S.banned=!!u.banned;render()}
+  },function(){});
+  unsub.myall=db.collection('orders').where('pk','==',S.pk).onSnapshot(function(snap){
+    S.myAll=snap.docs.map(function(d){return Object.assign({},d.data(),{id:d.id})});scheduleDebts();
+  },function(){});
   unsub.mine=db.doc('orders/'+myDocId()).onSnapshot(function(sn){
     S.mine=sn.exists?Object.assign({},sn.data(),{id:sn.id}):null;render();
   },function(e){S.err=e.code;render()});
 }
-function setDate(d){
-  if(!db){S.date=d;render(true);return}
-  if(d===S.date&&unsub.orders){render(true);return}
-  S.date=d;subDay();render(true);
-}
+function setDate(d){S.date=d;if(db)subDay();render(true)}
 function addLine(){
-  var map=menuMap(),d=S.draft,t=map[d.typeId];
-  if(!t||!S.name)return;
-  if(isClosed()&&!S.isAdmin){toast('الطلبات اتقفلت');return}
-  var e=d.extraId?map[d.extraId]:null;
-  var line={id:uid(),kind:d.kind,typeId:t.id,extraId:e?e.id:null,label:labelOf(t,e),bread:d.kind==='plate'?null:d.bread,salad:d.kind==='plate'?null:d.salad,qty:d.qty,note:d.note.trim().slice(0,80)};
-  var id=myDocId(),name=S.name,date=S.today;
-  d.typeId=null;d.extraId=null;d.qty=1;d.note='';
+  var im=itemMap(),d=S.draft,it=im[d.itemId];
+  if(!it||!S.pk)return;
+  if(S.banned&&!isStaff()){toast('طلباتك موقوفة');return}
+  if(isConfirmed(S.mine)){toast('الطلب متأكد. دوس تعديل الطلب الأول');return}
+  if(isClosed()&&!isStaff()){toast('الطلبات اتقفلت');return}
+  var plate=d.kind==='plate';
+  var line={id:uid(),itemId:it.id,label:it.name,kind:d.kind,bread:plate?null:d.bread,salad:plate?null:d.salad,qty:d.qty,note:d.note.trim().slice(0,80)};
+  var id=myDocId(),name=S.name,pk=S.pk,date=S.today;
+  d.itemId=null;d.qty=1;d.note='';
   render(true);toast('اتضاف: '+line.label);
   enqueue(function(){
     var ref=db.doc('orders/'+id);
@@ -292,12 +490,13 @@ function addLine(){
       var cur=snap.exists?snap.data():{};
       var lines=(cur.lines||[]).map(function(x){return Object.assign({},x)});
       lines.push(line);
-      return ref.set({date:date,name:name,lines:lines,updatedAt:Date.now()});
+      return ref.set(Object.assign({},cur,{date:date,name:name,pk:pk,lines:lines,paid:false,confirmed:false,updatedAt:Date.now()}));
     });
   },'الطلب ماتسجلش، جرّب تاني');
 }
 function removeLine(lid){
-  if(isClosed()&&!S.isAdmin){toast('الطلبات اتقفلت');return}
+  if(isConfirmed(S.mine)){toast('الطلب متأكد. دوس تعديل الطلب الأول');return}
+  if(isClosed()&&!isStaff()){toast('الطلبات اتقفلت');return}
   var id=myDocId();
   enqueue(function(){
     var ref=db.doc('orders/'+id);
@@ -306,243 +505,406 @@ function removeLine(lid){
       var cur=Object.assign({},s.data());
       var lines=(cur.lines||[]).filter(function(x){return x.id!==lid}).map(function(x){return Object.assign({},x)});
       if(!lines.length)return ref.delete();
-      cur.lines=lines;cur.updatedAt=Date.now();return ref.set(cur);
+      cur.lines=lines;cur.paid=false;cur.updatedAt=Date.now();return ref.set(cur);
     });
   },'الحذف ماتمش، جرّب تاني');
 }
-function toggleClosed(){
-  var c=!isClosed(),date=S.date;
-  enqueue(function(){return db.doc('meta/'+date).set({closed:c})},'ماقدرتش أغيّر الحالة');
+function setPaid(id,v){
+  enqueue(function(){
+    return db.doc('orders/'+id).update({paid:!!v}).then(function(){if(v)return autoUnban(id)});
+  },'ماقدرتش أسجّل الدفع');
 }
-var SEED_TYPES=['فول','طعمية','صوابع','شيبسي','مهروسة','بطاطس','بطاطس بانيه','باذنجان','مسقعة','جبنة','بابا غنوج','شكشوكة','بيض','أوميلت','جبنة مقلية','جبنة رومي','جبنة شيدر','حلاوة بالقشطة','عجة بلدي','عجة فرنساوي','قرنبيط','ميكس','نعمة'];
-var SEED_EXTRAS=[['بيض','بالبيض'],['طعمية','بالطعمية'],['أوميلت','بالأوميلت'],['جبنة','بالجبنة'],['جبنة مقلية','بالجبنة المقلية'],['جبنة رومي','بالجبنة الرومي'],['باذنجان','بالباذنجان'],['كاتشب','بالكاتشب'],['بيفي','بالبيفي'],['بسطرمة','بالبسطرمة'],['سجق','بالسجق'],['بابا غنوج','على بابا غنوج'],['إسكندراني','إسكندراني'],['سمنة بلدي','بالسمنة البلدي'],['محشية','محشية'],['كاتشب مايونيز','بالكاتشب والمايونيز']];
-var SEED_PLATES=['فول','طعمية','بيض'];
-function seedMenu(){
-  var b=db.batch(),n=0;
-  SEED_TYPES.forEach(function(x,i){b.set(db.doc('menu/s'+(i+1)),{name:x,cat:'sandwich',price:null,phrase:null,sort:i+1});n++});
-  SEED_EXTRAS.forEach(function(x,i){b.set(db.doc('menu/e'+(i+1)),{name:x[0],cat:'extra',price:null,phrase:x[1],sort:i+1});n++});
-  SEED_PLATES.forEach(function(x,i){b.set(db.doc('menu/p'+(i+1)),{name:x,cat:'plate',price:null,phrase:null,sort:i+1});n++});
+function autoUnban(orderId){
+  return db.doc('orders/'+orderId).get().then(function(sn){
+    if(!sn.exists)return;var pk=sn.data().pk;if(!pk)return;
+    return db.doc('users/'+pk).get().then(function(us){
+      if(!us.exists||!us.data().banned)return;
+      return db.collection('orders').where('pk','==',pk).get().then(function(q){
+        var today=ymd(),left=q.docs.filter(function(d){var o=d.data();return !o.paid&&isConfirmed(o)&&o.date<today});
+        if(!left.length)return db.doc('users/'+pk).set({banned:false},{merge:true});
+      });
+    });
+  });
+}
+function setConfirmed(v){
+  var id=myDocId();
+  enqueue(function(){var patch={confirmed:v,updatedAt:Date.now()};return db.doc('orders/'+id).update(patch)},v?'ماقدرتش أأكد الطلب':'ماقدرتش أفتح الطلب للتعديل');
+  toast(v?'اتأكد طلبك ✅':'تقدر تعدّل طلبك دلوقتي');
+}
+function setBan(pk,v){enqueue(function(){return db.doc('users/'+pk).set({banned:!!v},{merge:true})},'ماقدرتش أعمل الحظر');toast(v?'اتحظر':'اتفك الحظر')}
+function setMeta(patch){var date=S.date;enqueue(function(){return db.doc('meta/'+date).set(patch,{merge:true})},'ماقدرتش أحفظ')}
+function seedAll(){
+  var b=db.batch(),ids=[];
+  SEED_RESTS.forEach(function(n,i){var id='r'+(i+1);ids.push(id);b.set(db.doc('rests/'+id),{name:n,bread:SEED_BREAD,delivery:SEED_DELIVERY,sort:i+1})});
+  var k=0;
+  GROUPS.forEach(function(g){
+    (SEED_ITEMS[g[0]]||[]).forEach(function(x,i){
+      k++;var pr={};ids.forEach(function(r){pr[r]=x[1]});
+      b.set(db.doc('items/i'+String(k).padStart(3,'0')),{name:x[0],group:g[0],sort:i+1,prices:pr});
+    });
+  });
   enqueue(function(){return b.commit()},'ماقدرتش أحمّل المنيو');
-  toast('بنحمّل المنيو الجاهز');
+  toast('بنحمّل المنيو والمطاعم');
 }
-function menuUpdate(id,patch){enqueue(function(){return db.doc('menu/'+id).update(patch)},'التعديل ماتحفظش')}
-function menuAdd(cat,name,price,phrase){
-  var id='x'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
-  var mx=0;S.menu.forEach(function(m){if(m.cat===cat&&isNum(m.sort)&&m.sort>mx)mx=m.sort});
-  enqueue(function(){return db.doc('menu/'+id).set({name:name,cat:cat,price:price,phrase:cat==='extra'?phrase:null,sort:mx+1})},'الصنف ماتضافش');
+function addRest(name,bread,delivery,src){
+  var mx=0;S.rests.forEach(function(r){if(isNum(r.sort)&&r.sort>mx)mx=r.sort});
+  var id='r'+Date.now().toString(36)+Math.random().toString(36).slice(2,4),b=db.batch();
+  b.set(db.doc('rests/'+id),{name:name,bread:bread,delivery:delivery,sort:mx+1,phone:''});
+  if(src)S.items.forEach(function(it){if(it.prices&&isNum(it.prices[src])){var pt={};pt['prices.'+id]=it.prices[src];b.update(db.doc('items/'+it.id),pt)}});
+  S.editRest=id;
+  enqueue(function(){return b.commit()},'المطعم ماتضافش');
+  toast('اتضاف مطعم: '+name);
+}
+function addItem(group,name,price){
+  var mx=0;S.items.forEach(function(m){if(m.group===group&&isNum(m.sort)&&m.sort>mx)mx=m.sort});
+  var pr={};S.rests.forEach(function(r){pr[r.id]=price});
+  var id='i'+Date.now().toString(36)+Math.random().toString(36).slice(2,4);
+  enqueue(function(){return db.doc('items/'+id).set({name:name,group:group,sort:mx+1,prices:pr})},'الصنف ماتضافش');
+}
+
+/* ---------- login ---------- */
+function tryLogin(u,p,cb){
+  var h=credHash(u,p);
+  if(u===MASTER_U&&h===MASTER_H){cb('master');return}
+  var fin=function(a){
+    var ah=a.adminH||credHash(DEF_ADMIN_U,DEF_ADMIN_P),oh=a.orgH||credHash(DEF_ORG_U,DEF_ORG_P);
+    cb(h===ah?'admin':h===oh?'org':null);
+  };
+  if(!db){fin({});return}
+  db.doc('settings/auth').get().then(function(s){fin(s.exists?s.data():{})}).catch(function(){fin({})});
+}
+
+/* ---------- debts (تنبيه الدفع) ---------- */
+var debtT=null;
+function scheduleDebts(){clearTimeout(debtT);debtT=setTimeout(refreshDebts,400)}
+function refreshDebts(){
+  if(!db||!S.pk||!S.restsReady||!S.itemsReady)return;
+  var n=nowD(),today=ymd(n),hour=n.getHours();
+  var mine=S.myAll.filter(function(o){return !o.paid&&isConfirmed(o)&&(o.date<today||(o.date===today&&hour>=S.remindHour))});
+  if(!mine.length){if(S.debts.length){S.debts=[];render()}return}
+  Promise.all(mine.map(function(o){
+    var get=(o.date===S.date)?Promise.resolve({orders:S.orders,meta:S.meta}):
+      Promise.all([db.doc('meta/'+o.date).get(),db.collection('orders').where('date','==',o.date).get()]).then(function(r){
+        return {meta:r[0].exists?r[0].data():null,orders:r[1].docs.map(function(d){return Object.assign({},d.data(),{id:d.id})})};
+      });
+    return get.then(function(x){
+      var c=calcDayFor(x.orders,x.meta),p=null;
+      c.people.forEach(function(q){if(q.o.id===o.id)p=q});
+      return {date:o.date,total:p?p.total:0,miss:p?p.miss:0,org:(x.meta&&x.meta.organizer)||''};
+    });
+  })).then(function(ds){S.debts=ds.sort(function(a,b){return a.date<b.date?-1:1});render()}).catch(function(){});
+}
+function debtBanner(){
+  if(!S.debts.length)return '';
+  return '<div class="note bad debt">'+ic('bell')+'<div class="nb"><b>لسه ماتدفعش حسابك</b>'+S.debts.map(function(x){
+    return '<div>'+money(x.total)+' ج عن '+esc(dateLabel(x.date))+(x.miss?' (وفيه أصناف بدون سعر)':'')+(x.org?' — ادفع لـ '+esc(x.org):'')+'</div>';
+  }).join('')+'</div></div>';
+}
+
+/* ---------- texts (للنسخ) ---------- */
+function orderText(d){
+  var agg=aggregate(d.people),secs=sections(agg),all=0;
+  var L=['طلبات غبور — '+dateLabel(S.date)];
+  if(d.rest)L.push('المطعم: '+d.rest.name);
+  secs.forEach(function(s){
+    L.push('');L.push('— '+s.title+' —');
+    s.rows.forEach(function(r){L.push(r.qty+' × '+r.label+(r.bread?' — '+saladTxt(r.salad):'')+(r.note?' — '+r.note:''))});
+    L.push('إجمالي '+(s.key==='plate'?'الأطباق':'عيش '+s.key)+': '+s.total);all+=s.total;
+  });
+  L.push('');L.push('الإجمالي: '+all);
+  return L.join('\n');
+}
+function accountsText(d){
+  var L=['حساب '+dateLabel(S.date)+(d.rest?' — '+d.rest.name:''),''];
+  d.people.forEach(function(p){
+    L.push(p.o.name+': '+shortOrder(p)+' — '+money(p.total)+' ج — '+(p.paid?'✅ مدفوع':'❌ لم يدفع')+(p.miss?' (فيه صنف بدون سعر)':''));
+  });
+  L.push('');L.push('الإجمالي: '+money(d.grand)+' ج — المدفوع '+d.paid+' من '+d.n);
+  return L.join('\n');
+}
+function copyOut(text,msg){
+  var fb=function(){S.copyText=text;S.selectCopy=true;render(true)};
+  try{navigator.clipboard.writeText(text).then(function(){toast(msg)},fb)}catch(e){fb()}
 }
 
 /* ---------- views ---------- */
-function viewName(){
-  return '<form class="card" data-form="name"><h2>اسمك إيه؟</h2>'+
-    '<p class="muted">اكتب اسمك عشان طلبك يتسجل عليك. لو في حد بنفس اسمك زوّد اسم تاني معاه.</p>'+
-    '<input id="nameInput" type="text" maxlength="30" autocomplete="off" aria-label="الاسم" placeholder="الاسم" value="'+esc(S.nameDraft||S.name)+'">'+
-    '<button class="btn" type="submit">ادخل على الطلبات</button></form>'+viewLogin();
+function loadingCard(){return '<section class="card"><h2>'+ic('clock')+'بنحمّل المنيو</h2><p class="muted">'+(S.slow?'الاتصال بطيء. اللي قدامك ممكن يكون مش محدّث.':'ثواني...')+'</p></section>'}
+function viewNoDb(){
+  return '<section class="card"><h2>'+ic('alert')+'الموقع لسه مش متوصل بقاعدة البيانات</h2><p>'+(S.setup?'محتاج تلصق إعدادات Firebase في أول ملف index.html (مكتوب هناك فين).':'مش قادر أوصل لقاعدة البيانات. اتأكد من النت وجرّب تاني.')+'</p></section>';
+}
+function greeting(){var h=nowD().getHours();return (h>=4&&h<12)?'صباح الخير':'أهلاً بيك'}
+function viewPhone(){
+  if(S.loginPending)return '<section class="card"><h2>'+ic('clock')+'بنفتح حسابك</h2><p class="muted">ثواني...</p></section>';
+  return '<form class="card hello" data-form="phone"><div class="hero">'+ic('sun')+'</div><h2>أهلاً بيك</h2>'+
+    '<p class="muted">اكتب رقم موبايلك عشان تدخل. الرقم لازم يكون مسجّل عند الكريتور.</p>'+
+    '<label class="inp" for="phoneInput">'+ic('phone')+'<input id="phoneInput" type="tel" inputmode="numeric" dir="ltr" autocomplete="tel" maxlength="20" aria-label="رقم الموبايل" placeholder="01xxxxxxxxx" value="'+esc(S.phoneDraft)+'"></label>'+
+    (S.phoneErr?'<div class="note bad">'+ic('alert')+'<span>'+esc(S.phoneErr)+'</span></div>':'')+
+    '<label class="chk"><input id="rememberMe" type="checkbox"'+(S.remember?' checked':'')+'>'+ic('bookmark')+'احفظ المستخدم على الجهاز</label>'+
+    '<button class="btn block" type="submit">'+ic('sandwich')+'ادخل</button></form>'+viewLogin();
+}
+function greetBlock(){
+  return '<div class="greet"><h2>'+greeting()+' يا '+esc(S.name)+'</h2><p class="muted">تحب تفطر إيه النهاردة؟</p></div>';
 }
 function viewLogin(){
-  if(S.isAdmin)return '<div class="card"><p>انت داخل كأدمن.</p><div><button type="button" class="btn small ghost" data-act="adminout">خروج الأدمن</button></div></div>';
-  if(!S.showLogin)return '<div style="text-align:center"><button type="button" class="btn small ghost" data-act="showlogin">دخول الأدمن</button></div>';
-  return '<form class="card" data-form="login"><h2>دخول الأدمن</h2>'+
-    '<div class="field"><label class="lbl" for="adminU">اليوزر</label><input id="adminU" name="u" type="text" dir="ltr" autocomplete="off" autocapitalize="off"></div>'+
-    '<div class="field"><label class="lbl" for="adminP">الباسورد</label><input id="adminP" name="p" type="password" dir="ltr" autocomplete="off"></div>'+
-    (S.loginErr?'<div class="note bad">اليوزر أو الباسورد غلط.</div>':'')+
-    '<button class="btn" type="submit">دخول</button></form>';
+  if(S.role!=='user')return '<div class="card"><p class="rline"><span class="k">'+ic(isMaster()?'crown':'shield')+'انت داخل كـ'+roleName()+'</span><button type="button" class="btn small ghost" data-act="logout">'+ic('logout')+'خروج</button></p></div>';
+  if(!S.showLogin)return '<div style="text-align:center"><button type="button" class="linkbtn" data-act="showlogin">'+ic('lock')+'دخول الإدارة</button></div>';
+  return '<form class="card" data-form="login"><h2>'+ic('shield')+'دخول الإدارة</h2>'+
+    '<div class="field"><label class="lbl" for="adminU">اليوزر</label><label class="inp" for="adminU">'+ic('user')+'<input id="adminU" name="u" type="text" dir="ltr" autocomplete="username" autocapitalize="off" spellcheck="false"></label></div>'+
+    '<div class="field"><label class="lbl" for="adminP">الباسورد</label><label class="inp" for="adminP">'+ic('key')+'<input id="adminP" name="p" type="'+(S.showPass?'text':'password')+'" dir="ltr" autocomplete="current-password"><button type="button" class="eye" data-act="eye" aria-label="إظهار أو إخفاء الباسورد">'+ic(S.showPass?'eyeoff':'eye')+'</button></label></div>'+
+    (S.loginErr?'<div class="note bad">'+ic('alert')+'<span>اليوزر أو الباسورد غلط.</span></div>':'')+
+    '<div class="actions"><button class="btn" type="submit">'+ic('lock')+'دخول</button><button type="button" class="btn ghost" data-act="cancellogin">إلغاء</button></div></form>';
 }
-function viewNoDb(){
-  return '<section class="card"><h2>الموقع لسه مش متوصل بقاعدة البيانات</h2><p>'+(S.setup?'محتاج تلصق إعدادات Firebase في أول ملف index.html (مكتوب هناك فين).':'مش قادر أوصل لقاعدة البيانات. اتأكد من النت وجرّب تاني.')+'</p></section>';
+function viewStopped(){
+  return '<section class="card stop"><div class="hero" style="width:64px;height:64px;border-radius:50%;background:var(--warn-bg);color:var(--warn-fg);display:grid;place-items:center">'+ic('power','lg')+'</div>'+
+    '<h2>الموقع واقف دلوقتي</h2><p class="stopmsg">'+esc(S.site.message||'الموقع معطل مؤقتاً.')+'</p></section>'+viewLogin();
 }
-function loadingCard(){
-  return '<section class="card"><h2>بنحمّل المنيو</h2><p class="muted">'+(S.slow?'الاتصال بطيء. اللي قدامك ممكن يكون مش محدّث.':'ثواني...')+'</p></section>';
+function viewBanned(){
+  return '<section class="card stop"><div class="hero" style="width:64px;height:64px;border-radius:50%;background:var(--warn-bg);color:var(--warn-fg);display:grid;place-items:center">'+ic('ban','lg')+'</div>'+
+    '<h2>طلباتك موقوفة</h2><p class="stopmsg">عليك حساب متأخر لسه ماتدفعش. ادفع للمنظم، ولما يتسجّل الدفع هتقدر تطلب تاني تلقائياً.</p></section>';
 }
-function chipPrice(m,plus){return isNum(m.price)?'<span class="pr">'+(plus?'+':'')+money(m.price)+'</span>':''}
+function chipPrice(it,rest){var p=priceOf(it,rest);return '<span class="pr">'+(p===null?'—':money(p))+'</span>'}
 function viewOrder(){
-  if(!S.menuReady)return loadingCard();
-  var map=menuMap(),d=S.draft;
-  var types=byCat(d.kind),extras=byCat('extra');
-  var t=map[d.typeId]&&map[d.typeId].cat===d.kind?map[d.typeId]:null;
-  var e=d.extraId&&map[d.extraId]?map[d.extraId]:null;
-  var closed=isClosed(),locked=(closed&&!S.isAdmin)||S.canWrite===false;
-  var h='';
-  if(S.canWrite===false)h+='<div class="note warn">اللينك ده للمشاهدة بس. اطلب من الأدمن يشاركه بصلاحية «مشاركة» عشان تقدر تطلب.</div>';
-  else if(closed)h+='<div class="note warn">'+(S.isAdmin?'الطلبات مقفولة دلوقتي. انت أدمن فتقدر تعدّل.':'الطلبات اتقفلت النهاردة. كلّم الأدمن لو عايز تعدّل.')+'</div>';
-  if(!types.length){
-    h+='<section class="card"><h2>المنيو لسه فاضي</h2><p class="muted">الأدمن يضيف الأصناف من لوحة الأدمن تحت.</p></section>';
-  }else{
-    var unit=null;
-    if(t){var ma=lineMoney({typeId:t.id,extraId:e?e.id:null,qty:1},map);unit=ma.unit}
-    h+='<section class="card"><fieldset'+(locked?' disabled':'')+'>';
-    h+='<div class="seg" role="group" aria-label="نوع الطلب">'+
-      ['sandwich','plate'].map(function(k){return '<button type="button" data-act="kind" data-v="'+k+'" aria-pressed="'+(d.kind===k)+'">'+(k==='sandwich'?'ساندوتش':'طلب (طبق)')+'</button>'}).join('')+'</div>';
-    h+='<div class="field"><div class="lbl">اختار النوع</div><div class="chips">'+
-      types.map(function(m){return '<button type="button" class="chip" data-act="type" data-id="'+esc(m.id)+'" aria-pressed="'+(m.id===d.typeId)+'">'+esc(m.name)+chipPrice(m,false)+'</button>'}).join('')+'</div></div>';
-    h+='<div class="field"><div class="lbl">إضافة (اختياري)</div><div class="chips">'+
-      '<button type="button" class="chip" data-act="extra" data-id="" aria-pressed="'+(!e)+'">بدون</button>'+
-      extras.filter(function(x){return !t||x.name!==t.name}).map(function(m){return '<button type="button" class="chip" data-act="extra" data-id="'+esc(m.id)+'" aria-pressed="'+(m.id===d.extraId)+'">'+esc(m.name)+chipPrice(m,true)+'</button>'}).join('')+'</div></div>';
-    if(d.kind==='sandwich')h+='<div class="two"><div class="field"><div class="lbl">العيش</div><div class="seg" role="group" aria-label="العيش">'+
-      BREAD.map(function(b){return '<button type="button" data-act="bread" data-v="'+b+'" aria-pressed="'+(d.bread===b)+'">'+b+'</button>'}).join('')+'</div></div>'+
-      '<div class="field"><div class="lbl">السلطة</div><div class="seg" role="group" aria-label="السلطة">'+
-      SALAD.map(function(b){return '<button type="button" data-act="salad" data-v="'+b+'" aria-pressed="'+(d.salad===b)+'">'+b+'</button>'}).join('')+'</div></div></div>';
-    h+='<div class="row"><div class="field"><div class="lbl">العدد</div><div class="stepper">'+
-      '<button type="button" data-act="qty" data-v="-1" aria-label="أنقص">−</button><output aria-live="polite">'+d.qty+'</output><button type="button" data-act="qty" data-v="1" aria-label="زوّد">+</button></div></div>'+
-      '<div class="field grow"><label class="lbl" for="noteInput">ملاحظة (اختياري)</label><input id="noteInput" type="text" maxlength="80" data-f="note" placeholder="مثلاً: من غير طماطم" value="'+esc(d.note)+'"></div></div>';
-    h+='<div class="preview">'+(t?'<span class="nm">'+esc(labelOf(t,e))+'</span><span class="pz">'+(unit!==null?money(unit*d.qty)+' ج.م':'السعر لسه متحددش')+'</span>':'<span class="muted">اختار النوع الأول</span>')+'</div>';
-    h+='<button type="button" class="btn" data-act="add"'+(t?'':' disabled')+'>أضف للطلب</button>';
-    h+='</fieldset></section>';
+  if(!S.restsReady||!S.itemsReady)return loadingCard();
+  var rest=dayRest(),im=itemMap(),d=S.draft;
+  if(!S.items.length||!rest){
+    return '<section class="card"><h2>'+ic('store')+'المنيو لسه فاضي</h2><p class="muted">'+(isAdmin()?'دوس «حمّل المنيو والمطاعم» في لوحة الأدمن تحت.':'الأدمن لسه ماجهّزش المنيو.')+'</p></section>';
   }
-  var o=S.mine;
-  var lines=o&&o.lines||[];
-  h+='<section class="card"><h2>طلبي النهاردة</h2>';
-  if(!lines.length){h+='<p class="muted">لسه ماطلبتش حاجة. اختار من فوق وأضف للطلب.</p>'}
+  var closed=isClosed(),conf=isConfirmed(S.mine),locked=(closed&&!isStaff())||conf;
+  var it=im[d.itemId]||null,plate=d.kind==='plate';
+  var h='';
+  if(closed)h+='<div class="note warn">'+ic('lock')+'<span>'+(isStaff()?'الطلبات مقفولة دلوقتي. انت '+roleName()+' فتقدر تعدّل.':'الطلبات اتقفلت النهاردة. كلّم الأدمن لو عايز تعدّل.')+'</span></div>';
+  h+='<section class="card"><div class="rline"><span class="k">'+ic('store')+'مطعم النهاردة</span><b class="rname">'+esc(rest.name)+'</b></div>'+
+    (rest.phone?'<div class="rline"><span class="k">'+ic('phone')+'رقم المطعم</span><a class="tel" dir="ltr" href="tel:'+esc(telDigits(rest.phone))+'">'+esc(rest.phone)+'</a></div>':'')+
+    (S.meta&&S.meta.organizer?'<div class="rline"><span class="k">'+ic('clip')+'المنظم (اللي بيجمع الحساب)</span><b>'+esc(S.meta.organizer)+(orgInfo(S.meta).phone?' <a class="tel" dir="ltr" href="tel:'+esc(orgInfo(S.meta).phone)+'">'+esc(orgInfo(S.meta).phone)+'</a>':'')+'</b></div>':'')+'<fieldset'+(locked?' disabled':'')+'>';
+  h+='<div class="seg" role="group" aria-label="نوع الطلب">'+
+    [['sandwich','ساندوتش','sandwich'],['plate','طبق','plate']].map(function(k){return '<button type="button" data-act="kind" data-v="'+k[0]+'" aria-pressed="'+(d.kind===k[0])+'">'+ic(k[2])+k[1]+'</button>'}).join('')+'</div>';
+  h+='<div class="grp">'+GROUPS.map(function(g){
+    var list=itemsOf(g[0]),open=S.openGroup===g[0];
+    return '<div><button type="button" class="gh" data-act="grp" data-v="'+g[0]+'" aria-expanded="'+open+'"><span class="gl">'+ic(g[2])+g[1]+'</span><span class="cnt">'+list.length+ic(open?'up':'down')+'</span></button>'+
+      (open?'<div class="gitems">'+(list.length?list.map(function(x){return '<button type="button" class="chip" data-act="item" data-id="'+esc(x.id)+'" aria-pressed="'+(x.id===d.itemId)+'">'+esc(x.name)+chipPrice(x,rest)+'</button>'}).join(''):'<span class="muted">مفيش أصناف هنا.</span>')+'</div>':'')+'</div>';
+  }).join('')+'</div>';
+  if(!plate)h+='<div class="stack"><div class="field"><div class="lbl">العيش</div><div class="seg" role="group" aria-label="العيش">'+
+    BREAD.map(function(b){return '<button type="button" data-act="bread" data-v="'+b+'" aria-pressed="'+(d.bread===b)+'">'+b+(b==='بلدي'&&isNum(rest.bread)&&rest.bread>0?' +'+money(rest.bread):'')+'</button>'}).join('')+'</div></div>'+
+    '<div class="field"><div class="lbl">السلطة</div><div class="seg" role="group" aria-label="السلطة">'+
+    SALAD.map(function(b){return '<button type="button" data-act="salad" data-v="'+b+'" aria-pressed="'+(d.salad===b)+'">'+b+'</button>'}).join('')+'</div></div></div>';
+  h+='<div class="row"><div class="field"><div class="lbl">العدد</div><div class="stepper">'+
+    '<button type="button" data-act="qty" data-v="-1" aria-label="أنقص">'+ic('minus')+'</button><output aria-live="polite">'+d.qty+'</output><button type="button" data-act="qty" data-v="1" aria-label="زوّد">'+ic('plus')+'</button></div></div>'+
+    '<div class="field grow"><label class="lbl" for="noteInput">ملاحظة (اختياري)</label><input id="noteInput" type="text" maxlength="80" data-f="note" placeholder="مثلاً: من غير طماطم" value="'+esc(d.note)+'"></div></div>';
+  var unit=it?unitOf({itemId:it.id,kind:d.kind,bread:d.bread},rest,im):null;
+  h+='<div class="preview">'+(it?'<span class="nm">'+esc(it.name)+'</span><span class="pz">'+(unit!==null?money(unit*d.qty)+' ج.م':'السعر لسه متحددش')+'</span>':'<span class="muted">افتح قسم واختار الصنف</span>')+'</div>';
+  h+='<button type="button" class="btn" data-act="add"'+(it?'':' disabled')+'>'+ic('plus')+'أضف للطلب</button></fieldset></section>';
+  var o=S.mine,lines=o&&o.lines||[];
+  h+='<section class="card"><h2>'+ic('plate')+'طلبي النهاردة</h2>';
+  if(!lines.length)h+='<p class="muted">لسه ماطلبتش حاجة. افتح قسم واختار صنف وأضف للطلب.</p>';
   else{
-    var tot=orderTotals(o,map);
+    var t=orderSub(o,rest,im),dd=calcDay(),meIn=dd.people.some(function(p){return p.o.id===o.id});
+    var share=meIn?dd.share:shareOf(rest.delivery,dd.n+1);
+    var total=t.sub+share;
     h+=lines.map(function(l){
-      var m=lineMoney(l,map);
-      return '<div class="line"><span class="qty">'+m.qty+'</span><div style="min-width:0"><div class="lt">'+esc(l.label)+'</div>'+
-        '<div class="meta"><span class="badge'+(l.kind==='plate'?' plate':'')+'">'+(KIND[l.kind]||'')+'</span>'+(l.bread?'<span>عيش '+esc(l.bread)+'</span><span>'+esc(saladTxt(l.salad))+'</span>':'')+'</div>'+
+      var u=unitOf(l,rest,im),q=qtyOf(l);
+      return '<div class="line"><span class="qty">'+q+'</span><div style="min-width:0"><div class="lt">'+esc(l.label)+'</div>'+
+        '<div class="meta"><span class="badge'+(l.kind==='plate'?' plate':'')+'">'+(l.kind==='plate'?'طبق':'ساندوتش')+'</span>'+(l.bread?'<span>عيش '+esc(l.bread)+'</span><span>'+esc(saladTxt(l.salad))+'</span>':'')+'</div>'+
         (l.note?'<div class="meta">«'+esc(l.note)+'»</div>':'')+'</div>'+
-        '<div class="rt"><span class="pz">'+(m.unit!==null?money(m.total)+' ج.م':'—')+'</span>'+
-        '<button type="button" class="btn small ghost" data-act="rm" data-id="'+esc(l.id)+'" aria-label="حذف '+esc(l.label)+'"'+(locked?' disabled':'')+'>حذف</button></div></div>';
+        '<div class="rt"><span class="pz">'+(u!==null?money(u*q)+' ج.م':'—')+'</span>'+
+        '<button type="button" class="btn small ghost" data-act="rm" data-id="'+esc(l.id)+'" aria-label="حذف '+esc(l.label)+'"'+(locked?' disabled':'')+'>'+ic('trash')+'</button></div></div>';
     }).join('');
-    h+='<div class="totalrow"><span>الحساب</span><span><span class="big">'+money(tot.total)+'</span> ج.م'+(tot.miss?' <span class="muted">+ '+tot.miss+' بدون سعر</span>':'')+'</span></div>';
+    h+='<div class="sumrows"><div class="pl"><span>الساندوتشات</span><span class="pz">'+money(t.sub)+' ج.م'+(t.miss?' + '+t.miss+' بدون سعر':'')+'</span></div>'+
+      (isNum(rest.delivery)&&rest.delivery>0?'<div class="pl"><span>'+ic('bike')+' حصتك من التوصيل</span><span class="pz">'+money(share)+' ج.م</span></div>':'')+'</div>'+
+      '<div class="totalrow"><span>الحساب</span><span><span class="big">'+money(total)+'</span> ج.م</span></div>'+
+      '<div class="rline"><span class="badge '+(o.paid?'paid':'unpaid')+'">'+ic(o.paid?'check':'clock')+(o.paid?'مدفوع':'لم يتم الدفع')+'</span><span class="muted">حصة التوصيل بتتغير لو حد جديد طلب</span></div>';
+    if(!conf){
+      h+='<div class="note warn">'+ic('alert')+'<span>طلبك لسه ماتأكدش، ومش هيظهر للمنظم ولا يتحسب غير لما تدوس «تأكيد الطلب».</span></div>'+
+        '<button type="button" class="btn" data-act="confirm"'+((closed&&!isStaff())?' disabled':'')+'>'+ic('check')+'تأكيد الطلب</button>';
+    }else{
+      h+='<div class="rline"><span class="badge paid">'+ic('check')+'الطلب متأكد</span>'+(o.paid||(closed&&!isStaff())?'':'<button type="button" class="btn small ghost" data-act="unconfirm">'+ic('clip')+'تعديل الطلب</button>')+'</div>';
+    }
   }
   h+='</section>';
   return h;
 }
-function viewOrders(){
-  if(!S.menuReady||!S.ordersReady)return loadingCard();
-  var map=menuMap(),os=sortedOrders(),closed=isClosed(),agg=aggregate(os),bd=breakdown(agg);
-  var qty=0,total=0,miss=0;
-  os.forEach(function(o){var t=orderTotals(o,map);qty+=t.qty;total+=t.total;miss+=t.miss});
-  var h='<section class="card"><div class="daynav"><button type="button" class="btn small ghost" data-act="day" data-v="-1">اليوم السابق</button>'+
+
+/* ----- staff views ----- */
+function viewDay(){
+  var rs=restsSorted(),rest=dayRest(),closed=isClosed();
+  return '<section class="card"><h2>'+ic('store')+'إعداد اليوم</h2>'+
+    '<div class="field"><div class="lbl">مطعم النهاردة</div><div class="chips">'+rs.map(function(r){return '<button type="button" class="chip" data-act="dayrest" data-id="'+esc(r.id)+'" aria-pressed="'+(rest&&r.id===rest.id)+'">'+esc(r.name)+'</button>'}).join('')+'</div></div>'+
+    '<div class="actions"><button type="button" class="btn small '+(closed?'':'yellow')+'" data-act="close">'+ic('lock')+(closed?'افتح استقبال الطلبات':'اقفل استقبال الطلبات')+'</button></div>'+
+    (closed?'<div class="note warn">'+ic('lock')+'<span>الطلبات مقفولة لليوم ده.</span></div>':'')+'</section>';
+}
+function viewOrganizer(){
+  var cur=(S.meta&&S.meta.organizer)||'';
+  return '<form class="card" data-form="orgname"><h2>'+ic('clip')+'منظم النهاردة</h2><p class="muted">الناس بتشوف الاسم ده في صفحة الطلب، وهو اللي هيدفع للمطعم ويجمع الحساب.</p>'+
+    '<div class="stack"><div class="field"><label class="lbl" for="orgNameIn">اسم المنظم</label><label class="inp" for="orgNameIn">'+ic('user')+'<input id="orgNameIn" name="n" type="text" maxlength="30" autocomplete="off" value="'+esc(cur)+'"></label></div>'+
+    '<div class="field"><label class="lbl" for="orgPhoneIn">رقم المنظم للتحويل (اختياري)</label><label class="inp" for="orgPhoneIn">'+ic('phone')+'<input id="orgPhoneIn" name="ph" type="tel" dir="ltr" inputmode="numeric" maxlength="20" autocomplete="off" placeholder="01xxxxxxxxx" value="'+esc((S.meta&&S.meta.orgPhone)||'')+'"></label></div></div>'+
+    '<div class="actions"><button class="btn small" type="submit">'+ic('check')+'احفظ</button><button type="button" class="btn small ghost" data-act="meorg">أنا المنظم</button></div></form>';
+}
+function viewOrders(d){
+  if(!S.restsReady||!S.itemsReady||!S.ordersReady)return loadingCard();
+  var h='<section class="card"><div class="daynav"><button type="button" class="btn small ghost" data-act="day" data-v="-1">'+ic('right')+'اليوم السابق</button>'+
     '<span class="dl">'+esc(dateLabel(S.date))+'</span>'+
-    '<span class="actions"><button type="button" class="btn small ghost" data-act="day" data-v="1"'+(S.date>=S.today?' disabled':'')+'>اليوم التالي</button>'+
+    '<span class="actions"><button type="button" class="btn small ghost" data-act="day" data-v="1"'+(S.date>=S.today?' disabled':'')+'>اليوم التالي'+ic('left')+'</button>'+
     (S.date!==S.today?'<button type="button" class="btn small" data-act="todaydate">النهاردة</button>':'')+'</span></div>'+
-    '<div class="tiles"><div class="tile"><span>الأشخاص</span><b>'+os.length+'</b></div><div class="tile"><span>القطع</span><b>'+qty+'</b></div>'+
-    '<div class="tile"><span>إجمالي الحساب</span><b>'+money(total)+' ج</b>'+(miss?'<small>'+miss+' بدون سعر</small>':'')+'</div></div>'+
-    '<div class="actions"><button type="button" class="btn small '+(closed?'':'yellow')+'" data-act="close">'+(closed?'افتح استقبال الطلبات':'اقفل استقبال الطلبات')+'</button></div>'+
-    (closed?'<div class="note warn">الطلبات مقفولة لليوم ده.</div>':'')+'</section>';
-  if(S.err)h+='<div class="note bad">في مشكلة في قراءة البيانات. اقفل الصفحة وافتحها تاني.</div>';
-  if(!os.length){
-    h+='<section class="card"><h2>لسه محدش طلب</h2><p class="muted">ابعت اللينك للمجموعة. أول ما حد يطلب هيظهر هنا.</p></section>';
-    return h;
-  }
-  h+='<section class="card"><h2>الأصناف مجمّعة</h2>'+
-    '<div class="actions"><button type="button" class="btn small" data-act="copy">انسخ كنص للواتساب</button>'+
-    '<button type="button" class="btn small ghost" data-act="dl-agg">ملف طباعة الأصناف</button>'+
-    '<button type="button" class="btn small ghost" data-act="dl-people">ملف طباعة حساب كل شخص</button></div>'+
-    '<p class="muted">ملف الطباعة بيتحفظ عندك، وأول ما تفتحه بتظهر نافذة الطباعة.</p>'+
+    '<div class="tiles"><div class="tile"><span>'+ic('user')+'الأشخاص</span><b>'+d.n+'</b></div><div class="tile"><span>'+ic('sandwich')+'القطع</span><b>'+d.qty+'</b></div>'+
+    '<div class="tile"><span>'+ic('wallet')+'الساندوتشات</span><b>'+money(d.sub)+' ج</b>'+(d.miss?'<small>'+d.miss+' بدون سعر</small>':'')+'</div>'+
+    '<div class="tile"><span>'+ic('wallet')+'الإجمالي</span><b>'+money(d.grand)+' ج</b></div>'+
+    '<div class="tile"><span>'+ic('check')+'اللي دفع</span><b>'+d.paid+' / '+d.n+'</b></div></div></section>';
+  if(S.err)h+='<div class="note bad">'+ic('alert')+'<span>في مشكلة في قراءة البيانات. اقفل الصفحة وافتحها تاني.</span></div>';
+  var pend=S.orders.filter(function(o){return (o.lines||[]).length&&o.confirmed===false}).map(function(o){return o.name});
+  if(pend.length)h+='<div class="note warn">'+ic('clock')+'<span>لسه ماأكدوش طلبهم ('+pend.length+'): '+esc(pend.join('، '))+'</span></div>';
+  if(!d.n){h+='<section class="card"><h2>'+ic('plate')+'لسه محدش أكّد طلبه</h2><p class="muted">ابعت اللينك للمجموعة. أول ما حد يدوس «تأكيد الطلب» هيظهر هنا.</p></section>';return h}
+  var secs=sections(aggregate(d.people)),all=0;
+  secs.forEach(function(s){all+=s.total});
+  h+='<section class="card"><h2>'+ic('sandwich')+'الأصناف مجمّعة</h2>'+
+    '<div class="actions"><button type="button" class="btn small" data-act="copy-order">'+ic('copy')+'انسخ الأوردر كله</button>'+
+    '<button type="button" class="btn small ghost" data-act="copy-accounts">'+ic('copy')+'انسخ حساب كل شخص</button></div>'+
     (S.copyText?'<textarea id="copyBox" readonly rows="8" aria-label="النص للنسخ">'+esc(S.copyText)+'</textarea>':'')+
-    '<div class="agg">'+agg.map(function(r){
-      return '<span class="c">'+r.qty+'</span><div class="d"><div class="lt">'+esc(r.label)+' <span class="badge'+(r.kind==='plate'?' plate':'')+'">'+(KIND[r.kind]||'')+'</span></div>'+
-        '<div class="meta">'+(r.bread?'<span>عيش '+esc(r.bread)+'</span><span>'+esc(saladTxt(r.salad))+'</span>':'')+(r.note?'<span>«'+esc(r.note)+'»</span>':'')+'</div>'+
-        '<div class="meta">'+esc(r.who.join('، '))+'</div></div>';
-    }).join('')+'</div>'+
-    '<div class="totalrow"><span>عيش: '+esc(bd.bread)+'</span><span>سلطة: '+esc(bd.salad)+'</span></div></section>';
-  h+='<section class="card"><h2>حساب كل شخص</h2><div class="people">'+os.map(function(o){
-    var t=orderTotals(o,map);
-    var cid='o:'+o.id;
-    return '<div class="person"><header><h3>'+esc(o.name)+'</h3><span class="pz">'+money(t.total)+' ج.م'+(t.miss?' *':'')+'</span></header>'+
-      (o.lines||[]).map(function(l){var m=lineMoney(l,map);return '<div class="pl"><span>'+m.qty+' × '+esc(l.label)+(l.kind==='plate'?' (طلب)':'')+'</span><span class="pz">'+(m.unit!==null?money(m.total):'—')+'</span></div>'}).join('')+
-      (t.miss?'<div class="muted">* '+t.miss+' صنف بدون سعر لسه</div>':'')+
-      (S.confirmDel===cid?'<span class="conf">تمسح طلب '+esc(o.name)+'؟ <button type="button" class="btn small" data-act="delorder" data-id="'+esc(o.id)+'">امسح</button><button type="button" class="btn small ghost" data-act="no">لأ</button></span>':
-        '<div><button type="button" class="btn small ghost" data-act="ask" data-id="'+esc(cid)+'">حذف الطلب</button></div>')+'</div>';
+    secs.map(function(s){
+      return '<div class="sec"><div class="sh"><span>'+esc(s.title)+'</span><span class="tot">إجمالي '+s.total+'</span></div><div class="agg">'+s.rows.map(function(r){
+        return '<span class="c">'+r.qty+'</span><div class="d"><div class="lt">'+esc(r.label)+'</div>'+
+          ((r.bread||r.note)?'<div class="meta">'+(r.bread?'<span>'+esc(saladTxt(r.salad))+'</span>':'')+(r.note?'<span>«'+esc(r.note)+'»</span>':'')+'</div>':'')+
+          '<div class="meta">'+esc(r.who.join('، '))+'</div></div>';
+      }).join('')+'</div></div>';
+    }).join('')+
+    '<div class="totalrow"><span>الإجمالي</span><span><span class="big">'+all+'</span> قطعة</span></div></section>';
+  h+='<section class="card"><h2>'+ic('wallet')+'حساب كل شخص</h2><p class="muted">الحساب شامل التوصيل. ب = بلدي، ش = شامي.</p>'+
+    '<div class="people">'+d.people.map(function(p){
+    var o=p.o,cid='o:'+o.id;
+    return '<div class="person"><header><h3>'+esc(o.name)+'</h3><span class="pz">'+money(p.total)+' ج.م'+(p.miss?' *':'')+'</span></header>'+
+      '<div class="sum">'+esc(shortOrder(p))+'</div>'+
+      (p.miss?'<div class="muted">* فيه صنف بدون سعر لسه</div>':'')+
+      '<div class="rline"><span class="badge '+(p.paid?'paid':'unpaid')+'">'+ic(p.paid?'check':'clock')+(p.paid?'مدفوع':'لم يتم الدفع')+'</span>'+
+      '<button type="button" class="btn small '+(p.paid?'ghost':'')+'" data-act="paid" data-id="'+esc(o.id)+'" data-v="'+(p.paid?'0':'1')+'">'+ic(p.paid?'x':'check')+(p.paid?'إلغاء الدفع':'تم الدفع')+'</button></div>'+
+      (p.paid?'':'<div class="rline">'+waBtn((userById(o.pk)||{}).phone,payMsg(o.name,p.total,p.qty,S.date===S.today?'النهاردة':dateLabel(S.date),orgInfo(d.meta)),'ذكّره بالدفع على واتساب')+'</div>')+
+      (isAdmin()?(S.confirmDel===cid?'<span class="conf">تمسح طلب '+esc(o.name)+'؟ <button type="button" class="btn small" data-act="delorder" data-id="'+esc(o.id)+'">امسح</button><button type="button" class="btn small ghost" data-act="no">لأ</button></span>':
+        '<div><button type="button" class="btn small ghost" data-act="ask" data-id="'+esc(cid)+'">'+ic('trash')+'حذف الطلب</button></div>'):'')+'</div>';
   }).join('')+'</div></section>';
   return h;
 }
-function itemRow(m){
-  var del=S.confirmDel===m.id?'<span class="conf">تمسحه؟ <button type="button" class="btn small" data-act="delitem" data-id="'+esc(m.id)+'">امسح</button><button type="button" class="btn small ghost" data-act="no">لأ</button></span>':
-    '<button type="button" class="btn small ghost" data-act="ask" data-id="'+esc(m.id)+'" aria-label="مسح '+esc(m.name)+'">مسح</button>';
-  return '<div class="mitem"><div class="mrow"><input id="n-'+esc(m.id)+'" type="text" maxlength="40" value="'+esc(m.name)+'" data-mid="'+esc(m.id)+'" data-f="name" aria-label="اسم الصنف">'+
-    '<input id="p-'+esc(m.id)+'" type="number" dir="ltr" inputmode="decimal" min="0" step="0.5" class="'+(isNum(m.price)?'':'need')+'" placeholder="السعر" value="'+(isNum(m.price)?m.price:'')+'" data-mid="'+esc(m.id)+'" data-f="price" aria-label="سعر '+esc(m.name)+'">'+del+'</div>'+
-    (m.cat==='extra'?'<label class="mini">يظهر في الطلب:<input id="h-'+esc(m.id)+'" type="text" maxlength="60" placeholder="'+esc(phraseOf(m))+'" value="'+esc(m.phrase||'')+'" data-mid="'+esc(m.id)+'" data-f="phrase"></label>':'')+'</div>';
+function viewLate(){
+  if(!isStaff())return '';
+  var rows=S.late.slice(),seen={};
+  rows.forEach(function(r){seen[r.pk]=1});
+  S.users.forEach(function(u){if(u.banned&&!seen[u.id])rows.push({pk:u.id,name:u.name,sum:0,rows:[]})});
+  var h='<section class="card"><h2>'+ic('alert')+'المتأخرين في الدفع</h2><p class="muted">اللي عليه حساب من يوم فات. '+(isAdmin()?'الأدمن يقدر يحظر الشخص، والحظر بيتفك تلقائياً أول ما يتسجّل دفعه.':'')+'</p>';
+  if(!rows.length)return h+'<p class="muted">محدش متأخر. 👌</p></section>';
+  h+='<div class="people">'+rows.map(function(r){
+    var u=userById(r.pk),ban=!!(u&&u.banned);
+    return '<div class="person"><header><h3>'+esc(r.name)+'</h3>'+(r.sum?'<span class="pz">'+money(r.sum)+' ج.م</span>':'')+'</header>'+
+      (r.rows.length?'<div class="sum">'+r.rows.map(function(x){return esc(dateLabel(x.date))+': '+money(x.total)+' ج'}).join(' • ')+'</div>':'')+
+      '<div class="rline">'+(ban?'<span class="badge unpaid">'+ic('ban')+'محظور</span>':'<span></span>')+'<span class="actions">'+
+      (r.rows.length?waBtn(u&&u.phone,lateMsg(r.name,r.rows),'ذكّره'):'')+
+      (isAdmin()&&u?(ban?'<button type="button" class="btn small ghost" data-act="unban" data-id="'+esc(r.pk)+'">'+ic('check')+'فك الحظر</button>':'<button type="button" class="btn small yellow" data-act="ban" data-id="'+esc(r.pk)+'">'+ic('ban')+'حظر</button>'):'')+
+      '</span></div></div>';
+  }).join('')+'</div></section>';
+  return h;
 }
-function menuSection(cat,title,hint){
-  var items=byCat(cat);
-  return '<section class="card"><h2>'+title+'</h2><p class="muted">'+hint+'</p>'+
-    (items.length?items.map(itemRow).join(''):'<p class="muted">مفيش أصناف هنا لسه.</p>')+
-    '<form class="addf" data-form="add" data-cat="'+cat+'"><input id="add-n-'+cat+'" name="n" type="text" maxlength="40" placeholder="اسم صنف جديد" aria-label="اسم صنف جديد">'+
-    '<input id="add-p-'+cat+'" name="p" type="number" dir="ltr" inputmode="decimal" min="0" step="0.5" placeholder="السعر" aria-label="السعر">'+
-    (cat==='extra'?'<input id="add-h-'+cat+'" name="ph" type="text" maxlength="60" placeholder="العبارة في الطلب (اختياري) مثل: بالبيض أو على بابا غنوج" aria-label="العبارة في الطلب">':'')+
-    '<button class="btn small" type="submit">أضف</button></form></section>';
+function numInput(id,val,f,mid,label,ph){return '<input id="'+id+'" type="number" dir="ltr" inputmode="decimal" min="0" step="0.5" class="'+(isNum(val)?'':'need')+'" placeholder="'+(ph||'السعر')+'" value="'+(isNum(val)?val:'')+'" data-mid="'+esc(mid)+'" data-f="'+f+'" aria-label="'+esc(label)+'">'}
+function viewMenuAdmin(){
+  if(!S.restsReady||!S.itemsReady)return loadingCard();
+  if(!S.rests.length||!S.items.length){
+    return '<section class="card"><h2>'+ic('store')+'المطاعم والمنيو</h2><p class="muted">لسه مفيش مطاعم أو أصناف. دوس لتحميل المطاعم الخمسة والمنيو الكامل بأسعار تقديرية، وبعدها عدّلها لكل مطعم.</p><div><button type="button" class="btn" data-act="seed">'+ic('plus')+'حمّل المنيو والمطاعم</button></div></section>';
+  }
+  var rs=restsSorted(),er=null;
+  rs.forEach(function(r){if(r.id===S.editRest)er=r});if(!er)er=rs[0];
+  var h='<section class="card"><h2>'+ic('store')+'أسعار المطاعم</h2><p class="muted">اختار المطعم اللي هتعدّل أسعاره. السعر بيتحدد لكل مطعم لوحده.</p>'+
+    '<div class="chips">'+rs.map(function(r){return '<button type="button" class="chip" data-act="editrest" data-id="'+esc(r.id)+'" aria-pressed="'+(r.id===er.id)+'">'+esc(r.name)+'</button>'}).join('')+'</div>'+
+    '<div class="mrow"><label class="mini">اسم المطعم<input id="rn" type="text" maxlength="30" value="'+esc(er.name)+'" data-mid="'+esc(er.id)+'" data-f="rname"></label></div>'+
+    '<div class="mrow">'+(isMaster()?'<label class="mini">'+ic('phone')+' رقم المطعم<input id="rph" type="tel" dir="ltr" maxlength="20" value="'+esc(er.phone||'')+'" data-mid="'+esc(er.id)+'" data-f="rphone" placeholder="الكريتور بس يعدّله"></label>':
+      '<span class="muted">'+ic('phone')+' رقم المطعم: <b dir="ltr">'+esc(er.phone||'لسه ماتحددش (الكريتور هو اللي يضيفه)')+'</b></span>')+'</div>'+
+    '<div class="mrow"><label class="mini">زيادة العيش البلدي (ج)'+numInput('rb',er.bread,'rbread',er.id,'زيادة العيش البلدي','0')+'</label>'+
+    '<label class="mini">'+ic('bike')+' تكلفة التوصيل (ج)'+numInput('rd',er.delivery,'rdelivery',er.id,'تكلفة التوصيل','0')+'</label></div>'+
+    (rs.length>1?(S.confirmDel==='r:'+er.id?'<span class="conf">تشيل مطعم '+esc(er.name)+' من القايمة؟ <button type="button" class="btn small" data-act="delrest" data-id="'+esc(er.id)+'">شيله</button><button type="button" class="btn small ghost" data-act="no">لأ</button></span>':
+      '<div><button type="button" class="btn small ghost" data-act="ask" data-id="r:'+esc(er.id)+'">'+ic('trash')+'شيل المطعم ده</button></div>'):'')+'</section>'+
+    '<form class="card" data-form="addrest"><h2>'+ic('plus')+'إضافة مطعم</h2><div class="stack">'+
+    '<div class="field"><label class="lbl" for="ar-n">اسم المطعم</label><input id="ar-n" name="n" type="text" maxlength="30" autocomplete="off"></div>'+
+    '<div class="two"><div class="field"><label class="lbl" for="ar-b">زيادة العيش البلدي</label><input id="ar-b" name="b" type="number" dir="ltr" inputmode="decimal" min="0" step="0.5" value="0"></div>'+
+    '<div class="field"><label class="lbl" for="ar-d">التوصيل</label><input id="ar-d" name="d" type="number" dir="ltr" inputmode="decimal" min="0" step="0.5" value="0"></div></div>'+
+    '<div class="field"><label class="lbl" for="ar-s">انسخ الأسعار من</label><select id="ar-s" name="s"><option value="">من غير نسخ (هحط الأسعار بإيدي)</option>'+rs.map(function(r){return '<option value="'+esc(r.id)+'"'+(r.id===er.id?' selected':'')+'>'+esc(r.name)+'</option>'}).join('')+'</select></div></div>'+
+    '<div><button class="btn small" type="submit">'+ic('plus')+'أضف المطعم</button></div></form>'+
+    (removedRests().length?'<section class="card"><h2>'+ic('trash')+'مطاعم متشالة</h2><p class="muted">الطلبات القديمة محفوظة. تقدر ترجّع أي مطعم.</p><div class="chips">'+removedRests().map(function(r){return '<button type="button" class="chip" data-act="restrest" data-id="'+esc(r.id)+'">'+ic('plus')+esc(r.name)+'</button>'}).join('')+'</div></section>':'')+
+    '<section class="card" hidden></section>';
+  GROUPS.forEach(function(g){
+    var list=itemsOf(g[0]);
+    h+='<section class="card"><h2>'+ic(g[2])+g[1]+'</h2>'+
+      (list.length?list.map(function(m){
+        var del=S.confirmDel===m.id?'<span class="conf">تمسحه؟ <button type="button" class="btn small" data-act="delitem" data-id="'+esc(m.id)+'">امسح</button><button type="button" class="btn small ghost" data-act="no">لأ</button></span>':
+          '<button type="button" class="btn small ghost" data-act="ask" data-id="'+esc(m.id)+'" aria-label="مسح '+esc(m.name)+'">'+ic('trash')+'</button>';
+        return '<div class="mitem"><div class="mrow"><input id="n-'+esc(m.id)+'" type="text" maxlength="50" value="'+esc(m.name)+'" data-mid="'+esc(m.id)+'" data-f="iname" aria-label="اسم الصنف">'+
+          numInput('p-'+m.id+'-'+er.id,priceOf(m,er),'iprice',m.id,'سعر '+m.name+' في '+er.name)+del+'</div></div>';
+      }).join(''):'<p class="muted">مفيش أصناف هنا لسه.</p>')+
+      '<form class="addf" data-form="additem" data-group="'+g[0]+'"><input id="add-n-'+g[0]+'" name="n" type="text" maxlength="50" placeholder="اسم صنف جديد" aria-label="اسم صنف جديد">'+
+      '<input id="add-p-'+g[0]+'" name="p" type="number" dir="ltr" inputmode="decimal" min="0" step="0.5" placeholder="السعر" aria-label="السعر">'+
+      '<button class="btn small" type="submit">'+ic('plus')+'أضف</button></form></section>';
+  });
+  h+='<form class="card" data-form="remind"><h2>'+ic('bell')+'تنبيه الدفع</h2><p class="muted">اللي مادفعش بيظهرله تنبيه بعد الساعة دي في نفس اليوم، ويفضل يظهرله الأيام اللي بعد كده لحد ما يدفع. الساعة بنظام 24 (مثلاً 14 = 2 الظهر).</p>'+
+    '<div class="row"><div class="field"><label class="lbl" for="rh">الساعة</label><input id="rh" name="h" type="number" dir="ltr" min="0" max="23" step="1" value="'+S.remindHour+'"></div><button class="btn small" type="submit">'+ic('check')+'احفظ</button></div></form>';
+  return h;
 }
-function viewMenu(){
-  if(!S.menuReady)return loadingCard();
-  var seedCard=S.menu.length?'':'<section class="card"><h2>المنيو فاضي</h2><p class="muted">دوس لتحميل المنيو الجاهز (أصناف قائمة الأسعار)، وبعدها حط الأسعار.</p><div><button type="button" class="btn" data-act="seed">حمّل المنيو الجاهز</button></div></section>';
-  return seedCard+menuSection('sandwich','الساندوتشات','سعر الصنف الأساسي. الخانة البرتقالية يعني السعر لسه فاضي.')+
-    menuSection('plate','الطلبات (أطباق)','الأصناف اللي بتتطلب لوحدها مش في ساندوتش.')+
-    menuSection('extra','الإضافات','سعر الإضافة بيتجمع على سعر الصنف. اكتب 0 لو الإضافة ببلاش.');
+function credForm(role,title,icon){
+  return '<form class="card mastercard" data-form="cred" data-role="'+role+'"><h2>'+ic(icon)+title+'</h2><p class="muted">اكتب اليوزر والباسورد الجداد. القديم هيبطّل يشتغل.</p>'+
+    '<div class="two"><div class="field"><label class="lbl" for="cu-'+role+'">اليوزر الجديد</label><label class="inp" for="cu-'+role+'">'+ic('user')+'<input id="cu-'+role+'" name="u" type="text" dir="ltr" autocomplete="off" autocapitalize="off" spellcheck="false"></label></div>'+
+    '<div class="field"><label class="lbl" for="cp-'+role+'">الباسورد الجديد</label><label class="inp" for="cp-'+role+'">'+ic('key')+'<input id="cp-'+role+'" name="p" type="text" dir="ltr" autocomplete="off" spellcheck="false"></label></div></div>'+
+    '<div><button class="btn small" type="submit">'+ic('check')+'احفظ</button></div></form>';
 }
-
-/* ---------- print / copy ---------- */
-function aggText(){
-  var agg=aggregate(sortedOrders()),bd=breakdown(agg);
-  var L=['طلبات '+dateLabel(S.date)];
-  agg.forEach(function(r){L.push(r.qty+' × '+(r.kind==='plate'?'طلب ':'ساندوتش ')+r.label+(r.bread?' — عيش '+r.bread+' — '+saladTxt(r.salad):'')+(r.note?' — '+r.note:''))});
-  L.push('الإجمالي: '+bd.qty+' قطعة');
-  return L.join('\n');
-}
-function printDoc(title,body){
-  return '<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>'+esc(title)+'</title><style>'+
-    'body{font-family:Tahoma,Arial,sans-serif;margin:24px;color:#000}h1{margin:0 0 4px;font-size:24px}.sub{color:#444;margin-bottom:16px}'+
-    'table{width:100%;border-collapse:collapse;margin-bottom:16px}th,td{border:1px solid #000;padding:6px 8px;text-align:right;font-size:15px}th{background:#eee}'+
-    '.person{break-inside:avoid;margin-bottom:20px}.person h2{margin:0 0 6px;font-size:19px}.tot td{font-weight:bold;background:#f2f2f2}'+
-    '@media print{body{margin:12mm}}</style></head><body>'+body+
-    '<script>addEventListener("load",function(){setTimeout(function(){print()},400)})<\/script></body></html>';
-}
-function buildAggPrint(){
-  var agg=aggregate(sortedOrders()),bd=breakdown(agg);
-  var rows=agg.map(function(r){return '<tr><td>'+r.qty+'</td><td>'+(KIND[r.kind]||'')+'</td><td>'+esc(r.label)+'</td><td>'+esc(r.bread||'—')+'</td><td>'+esc(r.salad||'—')+'</td><td>'+esc(r.note)+'</td></tr>'}).join('');
-  return printDoc('طلبات '+S.date,'<h1>طلبات غبور — الأصناف</h1><div class="sub">'+esc(dateLabel(S.date))+'</div>'+
-    '<table><tr><th>العدد</th><th>النوع</th><th>الصنف</th><th>العيش</th><th>السلطة</th><th>ملاحظات</th></tr>'+rows+
-    '<tr class="tot"><td>'+bd.qty+'</td><td colspan="5">عيش: '+esc(bd.bread)+' — سلطة: '+esc(bd.salad)+'</td></tr></table>');
-}
-function buildPeoplePrint(){
-  var map=menuMap(),os=sortedOrders(),g=0,gm=0;
-  var body=os.map(function(o){
-    var t=orderTotals(o,map);g+=t.total;gm+=t.miss;
-    var rows=(o.lines||[]).map(function(l){var m=lineMoney(l,map);return '<tr><td>'+esc(l.label)+(l.kind==='plate'?' (طلب)':'')+'</td><td>'+m.qty+'</td><td>'+(m.unit!==null?money(m.total):'—')+'</td></tr>'}).join('');
-    return '<div class="person"><h2>'+esc(o.name)+'</h2><table><tr><th>الصنف</th><th>العدد</th><th>السعر</th></tr>'+rows+
-      '<tr class="tot"><td colspan="2">الإجمالي</td><td>'+money(t.total)+' ج.م'+(t.miss?' *':'')+'</td></tr></table></div>';
+function viewUsers(){
+  var us=S.users.slice().sort(function(a,b){return String(a.name).localeCompare(String(b.name),'en')});
+  var h='<section class="card mastercard"><h2>'+ic('users')+'المستخدمين ('+us.length+')</h2><p class="muted">بس الكريتور يضيف أو يعدّل. الناس بتدخل برقم الموبايل، والاسم اللي هنا هو اللي بيظهر جوه الموقع. الرقم الكامل بيتخزّن عشان رسائل الواتساب. الأدمن والمنظم بس هما اللي بيشوفوه جوه الموقع. لو الاسم ظاهر من غير رقم كامل، ضيفه تاني (بالجملة) برقمه.</p>'+
+    '<form class="addf" data-form="adduser"><input id="au-n" name="n" type="text" maxlength="40" placeholder="الاسم" aria-label="الاسم"><input id="au-p" name="p" type="tel" dir="ltr" inputmode="numeric" placeholder="رقم الموبايل" aria-label="رقم الموبايل" style="flex:1 1 150px;width:auto"><button class="btn small" type="submit">'+ic('plus')+'أضف</button></form>';
+  h+=us.map(function(u){
+    var del=S.confirmDel==='u:'+u.id?'<span class="conf">تمسحه؟ <button type="button" class="btn small" data-act="deluser" data-id="'+esc(u.id)+'">امسح</button><button type="button" class="btn small ghost" data-act="no">لأ</button></span>':
+      '<button type="button" class="btn small ghost" data-act="ask" data-id="u:'+esc(u.id)+'" aria-label="مسح '+esc(u.name)+'">'+ic('trash')+'</button>';
+    return '<div class="mitem"><div class="mrow"><input id="un-'+esc(u.id)+'" type="text" maxlength="40" value="'+esc(u.name)+'" data-mid="'+esc(u.id)+'" data-f="uname" aria-label="اسم المستخدم"><span class="badge" dir="ltr">'+(u.phone?esc(u.phone):'••••'+esc(u.last4||'')+' (من غير رقم كامل)')+'</span>'+(u.banned?'<span class="badge unpaid">'+ic('ban')+'محظور</span>':'')+del+'</div></div>';
   }).join('');
-  return printDoc('حساب '+S.date,'<h1>طلبات غبور — حساب كل شخص</h1><div class="sub">'+esc(dateLabel(S.date))+'</div>'+body+
-    '<table><tr class="tot"><td>إجمالي كل الطلبات</td><td>'+money(g)+' ج.م'+(gm?' (وفي '+gm+' صنف بدون سعر)':'')+'</td></tr></table>');
+  h+='<form class="stack" data-form="bulk"><div class="field"><label class="lbl" for="bulkTxt">إضافة بالجملة: اسم وتحته رقمه</label><textarea id="bulkTxt" rows="5" dir="auto" placeholder="Ahmed Ali&#10;01000000000"></textarea></div>'+
+    '<div class="actions"><button class="btn small" type="submit">'+ic('plus')+'أضف الكل</button><button type="button" class="btn small ghost" data-act="seedusers">'+ic('users')+'حمّل الـ '+SEED_USERS.length+' اسم الجاهزين</button></div></form></section>';
+  return h;
 }
-function saveFile(name,html){
-  var w=null;
-  try{w=window.open('','_blank')}catch(e){}
-  if(w){w.document.open();w.document.write(html);w.document.close();toast('اتفتح ملف الطباعة في صفحة جديدة');return}
-  try{
-    var u=URL.createObjectURL(new Blob([html],{type:'text/html'}));
-    var l=document.createElement('a');l.href=u;l.download=name;document.body.appendChild(l);l.click();l.remove();
-    toast('اتحفظ الملف. افتحه وهتظهر الطباعة');
-  }catch(e){toast('ماقدرتش أفتح ملف الطباعة')}
-}
-function copyAgg(){
-  var text=aggText();
-  var fallback=function(){S.copyText=text;S.selectCopy=true;render(true)};
-  try{navigator.clipboard.writeText(text).then(function(){toast('اتنسخت. ابعتها على الواتساب')},fallback)}catch(e){fallback()}
+function viewMaster(){
+  var stopped=!!S.site.stopped;
+  return '<section class="card mastercard"><h2>'+ic('crown')+'الكريتور</h2>'+
+    '<div class="rline"><span class="badge '+(stopped?'unpaid':'paid')+'">'+ic(stopped?'power':'check')+(stopped?'الموقع متوقف':'الموقع شغال')+'</span>'+
+    (stopped?'<button type="button" class="btn small" data-act="sitego">'+ic('check')+'شغّل الموقع</button>':
+      (S.confirmStop?'<span class="conf">توقف الموقع على الكل؟ <button type="button" class="btn small" data-act="sitestop">أوقف</button><button type="button" class="btn small ghost" data-act="no">لأ</button></span>':
+      '<button type="button" class="btn small yellow" data-act="askstop">'+ic('power')+'أوقف الموقع</button>'))+'</div>'+
+    '<div class="field"><label class="lbl" for="stopMsg">رسالة تظهر للناس لما الموقع يتوقف</label><textarea id="stopMsg" rows="2" maxlength="200" placeholder="مثلاً: الموقع معطل لعدم دفع الاشتراك">'+esc(S.stopMsgDraft!=null?S.stopMsgDraft:(S.site.message||''))+'</textarea></div>'+
+    (stopped?'<div><button type="button" class="btn small ghost" data-act="savemsg">'+ic('check')+'احفظ الرسالة</button></div>':'')+
+    '<p class="muted">لما توقفه، كل الناس (حتى الأدمن والمنظم) يشوفوا الرسالة دي. انت بس بتفضل شايف الموقع.</p></section>'+
+    credForm('admin','يوزر وباسورد الأدمن','shield')+credForm('org','يوزر وباسورد المنظم','clip');
 }
 
 /* ---------- render ---------- */
 function render(force){
   var main=$('#main'),ae=document.activeElement;
-  if(!force&&ae&&main.contains(ae)&&/^(INPUT|TEXTAREA)$/.test(ae.tagName)){S.dirty=true;return}
+  if(!force&&ae&&ae.id==='phoneInput'&&!ae.value){S.focusName=true}
+  else if(!force&&ae&&main.contains(ae)&&/^(INPUT|TEXTAREA)$/.test(ae.tagName)){S.dirty=true;return}
   S.dirty=false;
-  var wide=false;
-  main.className='wrap'+(wide?' wide':'');
-  $('#hwrap').className='wrap bar'+(wide?' wide':'');
-  $('#who').innerHTML=(S.name&&!S.editingName)?'<span>أهلاً <b>'+esc(S.name)+'</b></span>'+(S.isAdmin?'<span class="badge adm">أدمن</span>':'')+'<button type="button" class="link" data-act="chname">تغيير</button>'+(S.isAdmin?'<button type="button" class="link" data-act="adminout">خروج الأدمن</button>':''):'';
+  var named=!!(S.name&&S.pk);
+  var who='';
+  if(named)who+='<span>أهلاً <b>'+esc(S.name)+'</b></span>';
+  if(isStaff())who+='<span class="badge adm">'+ic(isMaster()?'crown':isAdmin()?'shield':'clip')+roleName()+'</span>';
+  if(named||isStaff())who+='<button type="button" class="link" data-act="logout">'+ic('logout')+'خروج</button>';
+  $('#who').innerHTML=who;
   var h;
   if(S.dbNull)h=viewNoDb();
-  else if(!S.name||S.editingName)h=viewName();
+  else if(S.site.stopped&&!isMaster())h=viewStopped();
+  else if(!named){h=viewPhone();if(isStaff())h+=staffPanel()}
   else{
-    h=viewOrder();
-    if(S.isAdmin)h+='<div class="sechead"><h2>لوحة الأدمن</h2><span class="badge adm">الطلبات والمنيو</span></div>'+viewOrders()+viewMenu();
+    h=debtBanner()+greetBlock()+((S.banned&&!isStaff())?viewBanned():viewOrder());
+    if(isStaff())h+=staffPanel();
   }
   main.innerHTML=h;
-  var ni=$('#nameInput');if(ni&&S.focusName){ni.focus();S.focusName=false}
+  var ni=$('#phoneInput');if(ni&&S.focusName){ni.focus();S.focusName=false}
   var au=$('#adminU');if(au&&S.focusLogin){au.focus();S.focusLogin=false}
   var cb=$('#copyBox');if(cb&&S.selectCopy){cb.focus();cb.select();S.selectCopy=false}
+}
+function staffPanel(){
+  var d=calcDay();
+  var h='<div class="sechead"><h2>'+ic(isMaster()?'crown':isAdmin()?'shield':'clip')+'لوحة '+roleName()+'</h2></div>';
+  if(isMaster())h+=viewMaster()+viewUsers();
+  if(isAdmin())h+=viewDay();
+  h+=viewOrganizer()+viewOrders(d)+viewLate();
+  if(isAdmin())h+=viewMenuAdmin();
+  return h;
 }
 
 /* ---------- events ---------- */
@@ -550,64 +912,123 @@ document.addEventListener('click',function(ev){
   var b=ev.target.closest('[data-act]');if(!b||b.disabled)return;
   var a=b.dataset.act,v=b.dataset.v,id=b.dataset.id,d=S.draft;
   switch(a){
-    case 'kind':d.kind=v;d.typeId=null;d.extraId=null;break;
-    case 'type':{d.typeId=id;var m=menuMap();if(d.extraId&&m[d.extraId]&&m[id]&&m[d.extraId].name===m[id].name)d.extraId=null;break}
-    case 'extra':d.extraId=id||null;break;
+    case 'kind':d.kind=v;break;
+    case 'grp':S.openGroup=S.openGroup===v?null:v;break;
+    case 'item':d.itemId=id;break;
     case 'bread':d.bread=v;break;
     case 'salad':d.salad=v;break;
     case 'qty':d.qty=Math.min(50,Math.max(1,d.qty+Number(v)));break;
     case 'add':addLine();return;
     case 'rm':removeLine(id);return;
-    case 'tab':S.tab=v;S.confirmDel=null;S.copyText=null;if(v==='order'){setDate(S.today);return}break;
-    case 'seed':seedMenu();return;
     case 'showlogin':S.showLogin=true;S.loginErr=false;S.focusLogin=true;break;
-    case 'adminout':S.isAdmin=false;lsSet('fn-admin','0');S.canWrite=S.canWriteReal;S.confirmDel=null;S.copyText=null;toast('خرجت من الأدمن');break;
-    case 'chname':S.editingName=true;S.nameDraft=S.name;S.focusName=true;break;
+    case 'cancellogin':S.showLogin=false;S.loginErr=false;break;
+    case 'eye':{S.showPass=!S.showPass;var pe=$('#adminP');if(pe)pe.type=S.showPass?'text':'password';b.innerHTML=ic(S.showPass?'eyeoff':'eye');if(pe)pe.focus()}return;
+    case 'logout':S.role='user';lsSet('fn-role','user');lsSet('fn-pk','');S.pk='';S.name='';S.banned=false;S.myPhone='';S.focusName=true;S.confirmDel=null;S.copyText=null;S.showLogin=false;ensureUsersSub();subMine();toast('خرجت');break;
     case 'day':setDate(shiftDate(S.date,Number(v)));return;
     case 'todaydate':setDate(S.today);return;
-    case 'close':toggleClosed();return;
-    case 'copy':copyAgg();return;
-    case 'dl-agg':saveFile('orders-'+S.date+'.html',buildAggPrint());return;
-    case 'dl-people':saveFile('accounts-'+S.date+'.html',buildPeoplePrint());return;
+    case 'meorg':if(!S.name){toast('سجّل دخولك برقمك الأول');return}setMeta({organizer:S.name,orgPhone:S.myPhone||''});toast('انت المنظم النهاردة');return;
+    case 'confirm':setConfirmed(true);return;
+    case 'unconfirm':setConfirmed(false);return;
+    case 'ban':setBan(id,true);return;
+    case 'unban':setBan(id,false);return;
+    case 'delrest':{S.confirmDel=null;var act=restsSorted().length;if(act<=1){toast('لازم يفضل مطعم واحد على الأقل');break}enqueue(function(){return db.doc('rests/'+id).update({removed:true})},'ماقدرتش أشيل المطعم');S.editRest=null;toast('اتشال المطعم')}break;
+    case 'restrest':enqueue(function(){return db.doc('rests/'+id).update({removed:false})},'ماقدرتش أرجّعه');toast('اتّرجّع المطعم');return;
+    case 'dayrest':setMeta({rest:id});return;
+    case 'close':setMeta({closed:!isClosed()});return;
+    case 'copy-order':copyOut(orderText(calcDay()),'اتنسخ الأوردر. ابعته على الواتساب');return;
+    case 'copy-accounts':copyOut(accountsText(calcDay()),'اتنسخ حساب كل شخص');return;
+    case 'paid':setPaid(id,v==='1');return;
+    case 'seed':seedAll();return;
+    case 'editrest':S.editRest=id;break;
+    case 'askstop':S.confirmStop=true;break;
+    case 'sitestop':{S.confirmStop=false;var msg=(S.stopMsgDraft!=null?S.stopMsgDraft:(S.site.message||'')).trim().slice(0,200);S.stopMsgDraft=null;enqueue(function(){return db.doc('settings/site').set({stopped:true,message:msg},{merge:true})},'ماقدرتش أوقف الموقع');toast('الموقع اتوقف')}break;
+    case 'savemsg':{var msg2=(S.stopMsgDraft!=null?S.stopMsgDraft:(S.site.message||'')).trim().slice(0,200);S.stopMsgDraft=null;enqueue(function(){return db.doc('settings/site').set({message:msg2},{merge:true})},'ماقدرتش أحفظ');toast('اتحفظت الرسالة')}return;
+    case 'deluser':S.confirmDel=null;enqueue(function(){return db.doc('users/'+id).delete()},'الحذف ماتمش');break;
+    case 'seedusers':seedUsers();return;
+    case 'sitego':enqueue(function(){return db.doc('settings/site').set({stopped:false},{merge:true})},'ماقدرتش أشغّل الموقع');toast('الموقع اشتغل');break;
     case 'ask':S.confirmDel=id;break;
-    case 'no':S.confirmDel=null;break;
+    case 'no':S.confirmDel=null;S.confirmStop=false;break;
     case 'delorder':S.confirmDel=null;enqueue(function(){return db.doc('orders/'+id).delete()},'الحذف ماتمش');break;
-    case 'delitem':S.confirmDel=null;enqueue(function(){return db.doc('menu/'+id).delete()},'الحذف ماتمش');break;
+    case 'delitem':S.confirmDel=null;enqueue(function(){return db.doc('items/'+id).delete()},'الحذف ماتمش');break;
     default:return;
   }
   render(true);
 });
 document.addEventListener('submit',function(ev){
   var f=ev.target.closest('form[data-form]');if(!f)return;ev.preventDefault();
-  if(f.dataset.form==='login'){
+  var k=f.dataset.form;
+  if(k==='login'){
     var u=f.elements.u.value.trim(),pw=f.elements.p.value;
-    if(u==='GB'&&pw==='GB'){S.isAdmin=true;S.canWrite=true;S.showLogin=false;S.loginErr=false;lsSet('fn-admin','1');toast('دخلت كأدمن')}
-    else{S.loginErr=true;S.focusLogin=true}
-    render(true);return;
+    tryLogin(u,pw,function(role){
+      if(role){S.role=role;lsSet('fn-role',role);S.showLogin=false;S.loginErr=false;S.showPass=false;toast('دخلت كـ'+roleName());if(!S.name)S.focusName=true;ensureUsersSub()}
+      else{S.loginErr=true;S.focusLogin=true}
+      render(true);
+    });
+    return;
   }
-  if(f.dataset.form==='name'){
-    var v=cleanName($('#nameInput').value);if(!v)return;
-    S.name=v;lsSet('fn-name',v);S.editingName=false;S.nameDraft='';subMine();render(true);
-  }else if(f.dataset.form==='add'){
-    var fd=new FormData(f),n=String(fd.get('n')||'').trim().slice(0,40);if(!n)return;
-    var ps=String(fd.get('p')||'').trim(),p=ps===''?null:Number(ps);if(p!==null&&(!isFinite(p)||p<0))p=null;
-    menuAdd(f.dataset.cat,n,p,String(fd.get('ph')||'').trim().slice(0,60));
+  if(k==='phone'){
+    var raw=$('#phoneInput').value;S.phoneDraft=raw;S.remember=$('#rememberMe').checked;
+    var ph=normPhone(raw);
+    if(!ph){S.phoneErr='اكتب رقم موبايل صحيح (11 رقم).';render(true);return}
+    var key=phoneKey(ph);
+    db.doc('users/'+key).get().then(function(sn){
+      if(!sn.exists){S.phoneErr='الرقم ده مش مسجّل. كلّم الكريتور يضيفه.';S.focusName=true;render(true);return}
+      loginUser(key,sn.data().name);
+    }).catch(function(){S.phoneErr='مش قادر أوصل لقاعدة البيانات، جرّب تاني.';render(true)});
+    return;
+  }else if(k==='adduser'){
+    var un=f.elements.n.value.trim().slice(0,40),up=normPhone(f.elements.p.value);
+    if(!un){toast('اكتب الاسم');return}
+    if(!up){toast('اكتب رقم موبايل صحيح (11 رقم)');return}
+    addUsers([{name:un,phone:up}]);f.reset();
+  }else if(k==='addrest'){
+    var rn=f.elements.n.value.trim().slice(0,30);if(!rn){toast('اكتب اسم المطعم');return}
+    addRest(rn,numOrNull(f.elements.b.value)||0,numOrNull(f.elements.d.value)||0,f.elements.s.value);f.reset();
+  }else if(k==='bulk'){
+    var list=parseUsers($('#bulkTxt').value);
+    if(!list.length){toast('مافهمتش الأسماء. اكتب الاسم وتحته رقمه');return}
+    addUsers(list);$('#bulkTxt').value='';
+  }else if(k==='additem'){
+    var fd=new FormData(f),n=String(fd.get('n')||'').trim().slice(0,50);if(!n)return;
+    addItem(f.dataset.group,n,numOrNull(fd.get('p')||''));
     f.reset();toast('اتضاف: '+n);
+  }else if(k==='orgname'){
+    var oph=f.elements.ph.value.trim(),opn=oph?normPhone(oph):'';
+    if(oph&&!opn){toast('رقم المنظم مش صحيح (11 رقم)');return}
+    setMeta({organizer:f.elements.n.value.trim().slice(0,30),orgPhone:opn||''});toast('اتحفظ بيانات المنظم');
+  }else if(k==='remind'){
+    var hv=Number(f.elements.h.value);if(!isFinite(hv)||hv<0||hv>23){toast('اكتب ساعة من 0 لـ 23');return}
+    S.remindHour=Math.floor(hv);enqueue(function(){return db.doc('settings/main').set({remindHour:S.remindHour},{merge:true})},'ماقدرتش أحفظ');
+    toast('اتحفظ وقت التنبيه');scheduleDebts();
+  }else if(k==='cred'){
+    var role=f.dataset.role,cu=f.elements.u.value.trim(),cp=f.elements.p.value.trim();
+    if(!cu||!cp){toast('اكتب اليوزر والباسورد');return}
+    if(cp.length<3){toast('الباسورد قصير');return}
+    var patch={};patch[role==='admin'?'adminH':'orgH']=credHash(cu,cp);
+    enqueue(function(){return db.doc('settings/auth').set(patch,{merge:true})},'ماقدرتش أحفظ');
+    f.reset();toast('اتغيّر يوزر وباسورد '+(role==='admin'?'الأدمن':'المنظم'));
   }
 });
 document.addEventListener('input',function(ev){
   var el=ev.target;
   if(el.dataset&&el.dataset.f==='note')S.draft.note=el.value;
-  if(el.id==='nameInput')S.nameDraft=el.value;
+  if(el.id==='phoneInput')S.phoneDraft=el.value;
+  if(el.id==='stopMsg')S.stopMsgDraft=el.value;
 });
 document.addEventListener('change',function(ev){
-  var el=ev.target;if(!el.dataset||!el.dataset.mid)return;
-  var id=el.dataset.mid,f=el.dataset.f,patch;
-  if(f==='price'){var s=el.value.trim();var n=s===''?null:Number(s);patch={price:(n!==null&&isFinite(n)&&n>=0)?n:null}}
-  else if(f==='name'){var nv=el.value.trim();if(!nv){render(true);return}patch={name:nv.slice(0,40)}}
-  else if(f==='phrase'){patch={phrase:el.value.trim().slice(0,60)}}
+  var el=ev.target;
+  if(el.id==='rememberMe'){S.remember=el.checked;return}
+  if(!el.dataset||!el.dataset.mid)return;
+  var id=el.dataset.mid,f=el.dataset.f,coll,patch={};
+  if(f==='uname'){var un2=el.value.trim();if(!un2){render(true);return}coll='users';patch.name=un2.slice(0,40)}
+  else if(f==='iname'){var nv=el.value.trim();if(!nv){render(true);return}coll='items';patch.name=nv.slice(0,50)}
+  else if(f==='iprice'){coll='items';patch['prices.'+S.editRest]=numOrNull(el.value)}
+  else if(f==='rname'){var rv=el.value.trim();if(!rv){render(true);return}coll='rests';patch.name=rv.slice(0,30)}
+  else if(f==='rphone'){coll='rests';patch.phone=el.value.trim().slice(0,20)}
+  else if(f==='rbread'){coll='rests';patch.bread=numOrNull(el.value)||0}
+  else if(f==='rdelivery'){coll='rests';patch.delivery=numOrNull(el.value)||0}
   else return;
-  menuUpdate(id,patch);
+  enqueue(function(){return db.doc(coll+'/'+id).update(patch)},'التعديل ماتحفظش');
 });
 document.addEventListener('focusout',function(){
   setTimeout(function(){
@@ -620,24 +1041,85 @@ document.addEventListener('visibilitychange',function(){
   if(document.hidden||!db)return;
   var t=ymd();if(t===S.today)return;
   var follow=S.date===S.today;S.today=t;subMine();
-  if(follow||!S.isAdmin)setDate(t);else render(true);
+  if(follow||!isStaff())setDate(t);else render(true);
 });
 
 /* ---------- start ---------- */
+function loadSettings(){
+  if(!db)return;
+  db.doc('settings/main').get().then(function(s){var h=s.exists?s.data().remindHour:null;if(isNum(h)&&h!==S.remindHour){S.remindHour=h;scheduleDebts()}}).catch(function(){});
+}
+function loginUser(key,name){
+  S.pk=key;S.name=name;S.phoneErr='';S.phoneDraft='';
+  if(S.remember){lsSet('fn-pk',key);lsSet('fn-remember','1')}else{lsSet('fn-pk','');lsSet('fn-remember','0')}
+  subMine();render(true);
+}
+function ensureUsersSub(){
+  if(!db)return;
+  if(isStaff()&&!unsub.users){
+    unsub.users=db.collection('users').onSnapshot(function(snap){S.users=snap.docs.map(function(d){return Object.assign({},d.data(),{id:d.id})});render()},function(){});
+    unsub.late=db.collection('orders').where('paid','==',false).onSnapshot(function(snap){
+      S.lateOrders=snap.docs.map(function(d){return Object.assign({},d.data(),{id:d.id})});scheduleLate();
+    },function(){});
+  }else if(!isStaff()&&unsub.users){unsub.users();unsub.users=null;S.users=[];if(unsub.late){unsub.late();unsub.late=null}S.lateOrders=[];S.late=[]}
+}
+var lateT=null;
+function scheduleLate(){clearTimeout(lateT);lateT=setTimeout(computeLate,500)}
+function computeLate(){
+  if(!db||!isStaff()||!S.restsReady||!S.itemsReady)return;
+  var today=ymd(),os=S.lateOrders.filter(function(o){return isConfirmed(o)&&o.date<today});
+  if(!os.length){if(S.late.length){S.late=[];render()}return}
+  var dates=[];os.forEach(function(o){if(dates.indexOf(o.date)<0)dates.push(o.date)});
+  Promise.all(dates.map(function(dt){
+    return Promise.all([db.doc('meta/'+dt).get(),db.collection('orders').where('date','==',dt).get()]).then(function(r){
+      return {date:dt,meta:r[0].exists?r[0].data():null,orders:r[1].docs.map(function(d){return Object.assign({},d.data(),{id:d.id})})};
+    });
+  })).then(function(days){
+    var by={};
+    days.forEach(function(x){
+      var c=calcDayFor(x.orders,x.meta);
+      c.people.forEach(function(p){
+        if(p.paid)return;
+        var k=p.o.pk||p.o.name,e=by[k]||(by[k]={pk:p.o.pk,name:p.o.name,sum:0,rows:[]});
+        e.sum+=p.total;e.rows.push({date:x.date,total:p.total,qty:p.qty,org:(x.meta&&x.meta.organizer)||'',orgPhone:(x.meta&&x.meta.orgPhone)||''});
+      });
+    });
+    S.late=Object.keys(by).map(function(k){by[k].rows.sort(function(a,b){return a.date<b.date?-1:1});return by[k]}).sort(function(a,b){return String(a.name).localeCompare(String(b.name),'ar')});
+    render();
+  }).catch(function(){});
+}
+function addUsers(list){
+  var b=db.batch();
+  list.forEach(function(u){b.set(db.doc('users/'+phoneKey(u.phone)),{name:u.name,phone:u.phone,last4:u.phone.slice(-4),addedAt:Date.now()},{merge:true})});
+  enqueue(function(){return b.commit()},'ماقدرتش أضيف');
+  toast('اتضاف '+list.length+(list.length>1?' مستخدم':' مستخدم'));
+}
+function seedUsers(){
+  var b=db.batch();
+  SEED_USERS.forEach(function(u){b.set(db.doc('users/'+u[1]),{name:u[0],last4:u[2],addedAt:Date.now()},{merge:true})});
+  enqueue(function(){return b.commit()},'ماقدرتش أحمّل الأسماء');
+  toast('بنحمّل '+SEED_USERS.length+' اسم');
+}
 function init(){
-  S.name=cleanName(lsGet('fn-name')||'');
-  S.isAdmin=lsGet('fn-admin')==='1';
-  S.editingName=true;S.nameDraft=S.name;S.focusName=true;
-  render(true);
+  var rm=lsGet('fn-remember'),pk=lsGet('fn-pk');
+  S.remember=rm!=='0';
+  var r=lsGet('fn-role');S.role=(r==='admin'||r==='org'||r==='master')?r:'user';
+  S.focusName=true;
   var cfg=window.FIREBASE_CONFIG;
   if(typeof firebase==='undefined'||!cfg||/PASTE/.test(cfg.apiKey||'')){S.dbNull=true;S.setup=typeof firebase!=='undefined';render(true);return}
-  try{
-    firebase.initializeApp(cfg);
-    db=firebase.firestore();
-  }catch(e){S.dbNull=true;render(true);return}
-  S.canWrite=true;S.canWriteReal=true;
-  setTimeout(function(){if(!S.menuReady){S.slow=true;render()}},10000);
-  subMenu();subDay();render(true);
+  try{firebase.initializeApp(cfg);db=firebase.firestore()}catch(e){S.dbNull=true;render(true);return}
+  if(rm==='1'&&pk){
+    S.loginPending=true;
+    db.doc('users/'+pk).get().then(function(sn){
+      S.loginPending=false;
+      if(sn.exists){S.pk=pk;S.name=sn.data().name;subMine()}else lsSet('fn-pk','');
+      render(true);
+    }).catch(function(){S.loginPending=false;render(true)});
+  }
+  render(true);
+  loadSettings();setInterval(function(){loadSettings();scheduleDebts()},60000);
+  setTimeout(function(){if(!S.restsReady||!S.itemsReady){S.slow=true;render()}},10000);
+  subAll();subDay();ensureUsersSub();render(true);
 }
 init();
 })();
